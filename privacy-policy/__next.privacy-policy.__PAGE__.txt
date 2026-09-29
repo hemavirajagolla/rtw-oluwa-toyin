@@ -1,0 +1,20 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+7:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"ViewportBoundary"]
+8:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"MetadataBoundary"]
+9:I[27201,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"IconMark"]
+b:I[39756,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"default"]
+c:I[37457,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"default"]
+6:X
+e:X
+e:C
+0:{"buildId":"YST9QZiW8Hb0QL3HxJO6g","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-shell","children":[["$","div",null,{"className":"page-intro","children":[["$","p",null,{"className":"section-kicker","children":"Privacy policy"}],["$","h1",null,{"children":"Your information is respected."}]]}],["$","div",null,{"className":"policy-body","children":[["$","p",null,{"children":"We only use customer information to process and fulfil orders. This information is never sold or shared with third parties."}],["$","p",null,{"children":"Your order details and contact information are kept private and used solely to confirm your purchase, communicate delivery information and answer any order-related questions."}]]}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":"$@5","staleTime":"$6","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L7",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L8",null,{"children":["$","$3",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"RTW by Elegant Moi | Wear Your Story"}],["$","meta","1",{"name":"description","content":"Luxury African ready-to-wear for customers across Nigeria, with a refined editorial shopping experience."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L9","3",{}]]}]}]}],null]}],"isPartial":"$@a","staleTime":"$6","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"isPartial":"$@d","staleTime":"$6","varyParams":"$e"}],"isUpgradeableISRFallback":false,"a":"$@f","rootVaryParams":null,"needsRuntimeRequest":"$@10"}
+4:null
+10:true
+6:300
+6:C
+f:0
+a:"$undefined"
+d:"$undefined"
+5:"$undefined"

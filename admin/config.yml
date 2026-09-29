@@ -1,0 +1,46 @@
+# Admin panel settings (Sveltia CMS, Decap-compatible).
+# Editors sign in with GitHub. Every "Publish" saves to the main branch,
+# then the GitHub Action rebuilds the site and Hostinger deploys it.
+backend:
+  name: github
+  repo: hemavirajagolla/rtw-oluwa-toyin
+  branch: main
+
+# Photos uploaded from the admin panel go here.
+media_folder: "public/images/products"
+public_folder: "/images/products"
+
+site_url: https://rtw-demo.n-visionsoft.com
+display_url: https://rtw-demo.n-visionsoft.com
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "content/products"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    summary: "{{name}} · ₦{{price}} · {{category}}"
+    sortable_fields: ["name", "price", "category", "displayOrder"]
+    fields:
+      - { label: "Product name", name: "name", widget: "string" }
+      - { label: "Web address name (small letters and dashes, e.g. noir-evening-gown)", name: "slug", widget: "string" }
+      - { label: "Price (₦)", name: "price", widget: "number", value_type: "int", min: 0 }
+      - { label: "Category", name: "category", widget: "select", options: ["Dresses", "Sets", "Tops", "Skirts", "Evening"] }
+      - { label: "Sizes available", name: "sizes", widget: "select", multiple: true, options: ["XS", "S", "M", "L", "XL", "XXL", "One Size"] }
+      - { label: "Colours", name: "colors", widget: "list", hint: "Add one colour per line, e.g. Emerald" }
+      - label: "Photos"
+        name: "images"
+        widget: "list"
+        hint: "The first photo is the main one."
+        field: { label: "Photo", name: "image", widget: "image" }
+      - { label: "Short description", name: "shortDescription", widget: "text" }
+      - { label: "Full description", name: "fullDescription", widget: "text", required: false }
+      - { label: "Fabric & care", name: "fabricCare", widget: "text", required: false }
+      - { label: "Featured on home page?", name: "featured", widget: "boolean", default: false }
+      - { label: "New arrival?", name: "newArrival", widget: "boolean", default: false }
+      - { label: "Sold out?", name: "soldOut", widget: "boolean", default: false }
+      - { label: "Display order (1 shows first)", name: "displayOrder", widget: "number", value_type: "int", default: 10 }

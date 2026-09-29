@@ -1,0 +1,16 @@
+1:"$Sreact.fragment"
+2:I[73646,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js","/_next/static/chunks/2264ej8y-qslc.js","/_next/static/chunks/2cy9onfdovfhj.js"],"CartSummary"]
+3:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+8:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"ViewportBoundary"]
+9:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"MetadataBoundary"]
+a:I[27201,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/0ze05px1q9f0b.js"],"IconMark"]
+7:X
+0:{"buildId":"YST9QZiW8Hb0QL3HxJO6g","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-shell","children":["$","$L2",null,{"suggestions":[{"slug":"golden-sunset-set","name":"Golden Sunset Set","category":"Sets","price":220,"image":"/images/toyin/toyinimg-1.webp"},{"slug":"ivory-strap-top","name":"Ivory Strap Top","category":"Tops","price":115,"image":"/images/toyin/toyinimg-14.webp"},{"slug":"kente-pleat-skirt","name":"Kente Pleat Skirt","category":"Skirts","price":140,"image":"/images/toyin/toyinimg-6.webp"},{"slug":"noir-evening-gown","name":"Noir Evening Gown","category":"Evening","price":260,"image":"/images/toyin/toyinimg-11.webp"},{"slug":"Emerald_Ruched_Dress","name":"Emerald Ruched Dress","category":"Sets","price":19,"image":"/images/products/toyinimg-15.jpg"}]}]}],[["$","script","script-0",{"src":"/_next/static/chunks/2264ej8y-qslc.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2cy9onfdovfhj.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L8",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L9",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"RTW by Elegant Moi | Wear Your Story"}],["$","meta","1",{"name":"description","content":"Luxury African ready-to-wear for customers across Nigeria, with a refined editorial shopping experience."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$La","3",{}]]}]}]}],null]}],"isPartial":"$@b","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@c","rootVaryParams":null,"needsRuntimeRequest":"$@d"}
+5:null
+d:true
+7:300
+7:C
+c:0
+b:"$undefined"
+6:"$undefined"
