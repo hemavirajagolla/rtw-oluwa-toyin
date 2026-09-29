@@ -239,6 +239,17 @@ body:has(.cart-drawer) .floating-socials{opacity:0;visibility:hidden;transition:
 @media(max-width:380px){.site-header .logo-crop.logo-rtw img{height:40px!important}}
 @media(min-width:1001px){.site-header{min-height:76px!important}}
 
+/* "You may also love" cards, used on the cart page and product pages */
+.cart-pick{display:flex;flex-direction:column;color:var(--co-ink,#16302a)}
+.cart-pick-img{position:relative;display:block;aspect-ratio:4/5;margin-bottom:10px;overflow:hidden;border-radius:16px;background:#ebe5da}
+.cart-pick-img img{width:100%;height:100%;object-fit:cover;object-position:center 10%;transition:transform 1s cubic-bezier(.22,1,.36,1)}
+.cart-pick-img i{position:absolute;right:10px;bottom:10px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fbf8f2;font-style:normal;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .45s cubic-bezier(.22,1,.36,1)}
+.cart-pick:hover .cart-pick-img img{transform:scale(1.06)}
+.cart-pick:hover .cart-pick-img i{opacity:1;transform:none}
+.cart-pick small{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--co-gold,#b58a3c)}
+.cart-pick strong{margin:3px 0 4px;font:400 16px Georgia,serif}
+.cart-pick b{font-size:14px}
+
 /* Sold-out marker used on every product card */
 .sold-tag{position:absolute;z-index:3;left:10px;top:10px;padding:5px 11px;border-radius:30px;background:#fbf8f2eb;color:#681c36;font:700 10px/1 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 4px 12px -6px #0006}
 .sold-tag-sm{left:4px;top:4px;padding:3px 6px;font-size:8.5px;letter-spacing:.08em}
