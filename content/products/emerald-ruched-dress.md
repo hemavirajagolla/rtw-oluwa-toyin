@@ -1,11 +1,12 @@
 ---
 name: Emerald Ruched Dress
 slug: Emerald_Ruched_Dress
-price: 15
+price: 17
 category: Dresses
 sizes:
   - S
   - XL
+  - XXL
 colors:
   - Emerald
 images:
