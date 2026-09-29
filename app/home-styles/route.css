@@ -1,0 +1,14 @@
+@import "../hero.css";
+@import "../categories.css";
+@import "../mood.css";
+@import "../shop-edit.css";
+@import "../journal.css";
+@import "../responsive.css";
+
+/* Keep the selected slide stable until the visitor chooses another one. */
+.lux-tab-fill,.mood-progress span{animation:none;transform:scaleX(1)}
+/* Avoid laying out and painting the entire editorial feed during first paint. */
+.cat-showcase,.mood,.shop-edit,.journal{content-visibility:auto;contain-intrinsic-size:auto 700px}
+@media(hover:none){
+  .lux-orb,.lux-badge text,.lux-look,.lux-spark,.lux-pulse:after,.lux-hotspot a:before,.lux-btn-primary:before{animation:none}
+}

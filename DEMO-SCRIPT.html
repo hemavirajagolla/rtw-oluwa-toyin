@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RTW Client Demo Script</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#f4f6f3; --surface:#ffffff; --ink:#15271f; --muted:#56665d; --line:#dde4dd;
+  --forest:#1b4332; --gold:#a8792c; --gold-soft:#f3e9d4; --say:#eef4ef; --warn:#fff4e5; --warn-ink:#8a4b00; --warn-line:#f0cf9c;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif; --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#101815; --surface:#16211c; --ink:#e7eee9; --muted:#9fb0a6; --line:#2a3a33;
+    --forest:#8fd1ad; --gold:#e0b566; --gold-soft:#2e2717; --say:#1b2b23; --warn:#2c2112; --warn-ink:#f1c27d; --warn-line:#5a4220;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#101815; --surface:#16211c; --ink:#e7eee9; --muted:#9fb0a6; --line:#2a3a33;
+  --forest:#8fd1ad; --gold:#e0b566; --gold-soft:#2e2717; --say:#1b2b23; --warn:#2c2112; --warn-ink:#f1c27d; --warn-line:#5a4220;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans)}
+.wrap{max-width:860px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+header.top{padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1{font:500 clamp(34px,6vw,52px)/1.08 var(--serif);margin:10px 0 12px;text-wrap:balance;letter-spacing:-.01em}
+h1 em,h2 em{font-style:italic;color:var(--gold)}
+.lede{font-size:18px;color:var(--muted);max-width:62ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.meta span{font-size:13px;font-weight:600;padding:5px 12px;border:1px solid var(--line);border-radius:30px;background:var(--surface);color:var(--muted)}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 32px}
+nav.toc a{font-size:13.5px;font-weight:600;color:var(--forest);text-decoration:none;padding:6px 12px;border-radius:30px;background:var(--surface);border:1px solid var(--line)}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--forest);outline:none}
+section{scroll-margin-top:16px;margin-top:44px}
+h2{font:500 clamp(26px,4vw,34px)/1.15 var(--serif);margin:0 0 6px;text-wrap:balance}
+h2 .n{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--gold);display:block;margin-bottom:6px}
+h3{font:600 17px/1.35 var(--sans);margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:68ch}
+.intro{color:var(--muted)}
+.step{display:grid;gap:10px;padding:18px 20px;margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.step h3{margin:0}
+.show{font-size:14px;color:var(--muted);margin:0}
+.show b{color:var(--forest);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;margin-right:6px}
+.say{margin:0;padding:12px 16px;border-radius:10px;background:var(--say);font-family:var(--serif);font-size:18px;line-height:1.55}
+.say::before{content:"Say";display:block;font:700 11.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--forest);margin-bottom:6px}
+ul.clean{margin:8px 0 0;padding-left:20px}
+ul.clean li{margin:4px 0}
+.warn{margin-top:14px;padding:16px 18px;border-radius:12px;background:var(--warn);border:1px solid var(--warn-line);color:var(--ink)}
+.warn strong{color:var(--warn-ink)}
+.warn ul{margin:8px 0 0;padding-left:20px}
+.warn li{margin:6px 0}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px;counter-reset:f}
+.flow div{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:14.5px;counter-increment:f}
+.flow div::before{content:counter(f);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--forest);color:var(--surface);font-weight:700;font-size:13px;margin-bottom:8px}
+dl.qa{margin:14px 0 0}
+dl.qa dt{font-weight:700;margin-top:16px}
+dl.qa dd{margin:4px 0 0;color:var(--ink);max-width:68ch}
+.close{margin-top:44px;padding:24px;border-radius:16px;background:var(--forest);color:var(--bg)}
+.close h2{color:var(--bg)}
+.close .say{background:rgba(255,255,255,.1);color:var(--bg)}
+.close .say::before{color:var(--gold-soft)}
+:root[data-theme="dark"] .close .say::before{color:var(--gold)}
+footer{margin-top:40px;font-size:13px;color:var(--muted)}
+@media (max-width:520px){ .say{font-size:17px} .step{padding:16px} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Client demo · Speaking script</div>
+    <h1>RTW by Elegant Moi: <em>walkthrough</em></h1>
+    <p class="lede">A page-by-page script for the client demo. For each part: what to click, then what to say, in plain everyday English.</p>
+    <div class="meta"><span>About 20–25 minutes</span><span>Show on laptop, then phone</span><span>Site: localhost:3000</span></div>
+  </header>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#prep">Before you start</a>
+    <a href="#open">Opening</a>
+    <a href="#header">Header</a>
+    <a href="#home">Home page</a>
+    <a href="#collections">Collections</a>
+    <a href="#product">Product page</a>
+    <a href="#order">Cart &amp; ordering</a>
+    <a href="#story">Our Story</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#contact">Contact</a>
+    <a href="#mobile">Phone view</a>
+    <a href="#qa">Client questions</a>
+    <a href="#end">Closing</a>
+  </nav>
+
+  <section id="prep">
+    <h2><span class="n">Step 0</span>Before you start</h2>
+    <ul class="clean">
+      <li>Open the site and press <b>Ctrl + Shift + R</b> once so you see the latest version.</li>
+      <li>Empty the bag first, so you can show adding a product live.</li>
+      <li>Keep a phone (or the browser's phone view) ready for the mobile part.</li>
+      <li>Close other tabs so nothing pops up during the demo.</li>
+    </ul>
+    <div class="warn">
+      <strong>Check these before the client sees them</strong>
+      <ul>
+        <li><b>Prices:</b> the site now shows prices in Naira (₦), but the product prices are still the old small numbers, so a dress shows as <b>₦180</b>. Either update the real prices before the demo, or tell the client “prices are placeholders for now.”</li>
+        <li><b>“EU delivery”</b> still appears as a small tag at the top of the Collections page. If the business is Naira-based, ask me to change it.</li>
+        <li><b>WhatsApp number</b> on the site is <b>+91 63056 15898</b>. Confirm this is the client's real number, or say it is a test number.</li>
+        <li><b>Sample text:</b> the chat on the Contact page, the photo titles in the Lookbook and a few short lines (values, FAQ answers) are example wording. Present them as “ready for your final text.”</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="open">
+    <h2><span class="n">1</span>Opening: what this website is</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Home page, top of the screen. Don't click yet.</p>
+      <p class="say">“This is the new RTW by Elegant Moi website. The goal was simple: make it feel like a luxury fashion brand, elegant and modern, and make it very easy for a customer to find a dress and order it. Everything works on laptop, tablet and phone. I'll walk you through it page by page, the same way a customer would use it.”</p>
+    </div>
+  </section>
+
+  <section id="header">
+    <h2><span class="n">2</span>The header (top bar)</h2>
+    <p class="intro">This bar stays at the top of every page.</p>
+    <div class="step">
+      <h3>Logo and menu</h3>
+      <p class="show"><b>Show</b>Point at the RTW logo, then the menu: Home, Collections, Story, Lookbook, Contact.</p>
+      <p class="say">“At the top we have your RTW logo. Clicking it always brings the customer back home. Next to it is the main menu: Home, Collections, your Story, the Lookbook and Contact.”</p>
+    </div>
+    <div class="step">
+      <h3>Search</h3>
+      <p class="show"><b>Show</b>Click the search icon, type “dress” slowly, point at the results.</p>
+      <p class="say">“This is the search. It works on every page. As the customer types, it shows matching products with photo and price, and also useful pages like Size guide or Shipping. So if someone types ‘delivery’, it takes them to the shipping page. They can press Enter to see all results.”</p>
+    </div>
+    <div class="step">
+      <h3>Cart icon</h3>
+      <p class="show"><b>Show</b>Point at the cart icon on the right.</p>
+      <p class="say">“This is the cart. When the customer adds something, a small gold number appears here showing how many items are in the bag. I'll show that in a moment.”</p>
+    </div>
+  </section>
+
+  <section id="home">
+    <h2><span class="n">3</span>Home page, section by section</h2>
+
+    <div class="step">
+      <h3>Green announcement strip</h3>
+      <p class="show"><b>Show</b>The thin green bar under the menu.</p>
+      <p class="say">“This thin strip is for short messages: new season, offers, or ‘styling support on WhatsApp’. It is easy to change whenever you have news.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Main banner (the first big section)</h3>
+      <p class="show"><b>Show</b>Let it play for a few seconds. Then click the bottom tabs: Occasion, Evening, Resort, New in. Hover over the photo on laptop.</p>
+      <p class="say">“This is the first thing every visitor sees. At the top is your brand line: ‘Design for a woman who owns every moment.’ The banner has four themes: Occasion, Evening, Resort and New In. It changes by itself every few seconds, and the customer can also click the tabs or thumbnails. Each theme has its own headline, photo and a ‘Shop the look’ card that goes straight to that product. The photo moves gently with the mouse, so it feels alive and premium. Below the scrolling line at the bottom repeats key messages like worldwide delivery and WhatsApp styling.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Services strip</h3>
+      <p class="show"><b>Show</b>The four items under the banner.</p>
+      <p class="say">“Right under the banner we build trust: worldwide delivery, secure ordering, easy support and personal styling. These are the four promises customers look for before they buy.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Explore by category</h3>
+      <p class="show"><b>Show</b>Scroll to the arch-shaped cards. Hover one on laptop.</p>
+      <p class="say">“Here customers can shop by category: Dresses, Sets, Tops, Skirts and Evening. The arch shape matches the design of the banner, so the whole site feels connected. Clicking a card opens that category directly.”</p>
+    </div>
+
+    <div class="step">
+      <h3>A mood for every moment</h3>
+      <p class="show"><b>Show</b>Click the different panels, or the arrow buttons.</p>
+      <p class="say">“This section is more like a magazine. Each panel is a mood: the dress edit, sets, everyday separates and after-dark evening wear. Click one and it opens up with the full photo and a shop button. It also plays by itself.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Shop the complete edit</h3>
+      <p class="show"><b>Show</b>Click the filter chips: All, Dresses, Sets. Hover a product card.</p>
+      <p class="say">“This is the product showcase on the home page. The customer can filter by category right here without leaving the page. When they hover a product, it lifts up and shows a ‘View piece’ button.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Journal and Trending now</h3>
+      <p class="show"><b>Show</b>The big photo card, the Evening and Our story cards, and the Trending list.</p>
+      <p class="say">“At the bottom we tell the story behind the brand. The big card leads to the Lookbook, these two cards lead to Evening wear and your Story, and ‘Trending now’ shows popular pieces.”</p>
+    </div>
+
+    <div class="step">
+      <h3>Footer and floating buttons</h3>
+      <p class="show"><b>Show</b>Scroll to the footer. Point at the WhatsApp and Instagram buttons in the corner.</p>
+      <p class="say">“The footer has the main links and useful pages like FAQ, Size guide, Shipping and Privacy. And on every page, in the corner, there are two round buttons: WhatsApp and Instagram, so a customer can reach you at any moment with one tap.”</p>
+    </div>
+  </section>
+
+  <section id="collections">
+    <h2><span class="n">4</span>Collections page (the shop)</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Click Collections in the menu. Show the rotating circle photos at the top.</p>
+      <p class="say">“This is the main shop page. At the top, three circle photos rotate slowly around your brand badge. It's a small detail that makes the page feel special.”</p>
+    </div>
+    <div class="step">
+      <h3>Filters</h3>
+      <p class="show"><b>Show</b>On the left: pick a category, click a size, move the price slider, switch “In stock only”. Then remove a filter chip.</p>
+      <p class="say">“On the left, customers can filter by category, size, price and availability. Each filter they choose shows as a small tag they can remove with one click, and the number of pieces updates straight away. They can also sort by price, newest or name, and choose how many products per row.”</p>
+    </div>
+    <div class="step">
+      <h3>On phone</h3>
+      <p class="say">“On phone, the filters open from a ‘Filters’ button as a panel that slides up from the bottom, which is how modern shopping apps work.”</p>
+    </div>
+  </section>
+
+  <section id="product">
+    <h2><span class="n">5</span>Product page</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Open any product. Hover the big photo to zoom. Click the second thumbnail.</p>
+      <p class="say">“When a customer opens a product, they see large photos. On laptop, moving the mouse over the photo zooms in, so they can see the fabric and details up close.”</p>
+    </div>
+    <div class="step">
+      <p class="show"><b>Show</b>Choose a colour and size, change quantity, click Add to bag. Point at the cart number.</p>
+      <p class="say">“On the right they choose colour and size, and there's a size guide link if they're unsure. The Add to bag button shows the total price. When they add it, the button turns green and says ‘Added’, and the number on the cart icon goes up. They can also order this single piece directly on WhatsApp.”</p>
+    </div>
+    <div class="step">
+      <p class="show"><b>Show</b>Open Description, Fabric &amp; care, Delivery. Scroll to “You may also love”.</p>
+      <p class="say">“Below are the details: description, fabric and care, delivery and sizing help, each opening with one click. At the bottom we suggest other pieces, to help the customer find more.”</p>
+    </div>
+  </section>
+
+  <section id="order">
+    <h2><span class="n">6</span>Cart and how ordering works</h2>
+    <div class="step">
+      <h3>The side bag</h3>
+      <p class="show"><b>Show</b>Click the cart icon. Change a quantity, then close it.</p>
+      <p class="say">“Clicking the cart opens a small panel from the side. The customer can change quantities or remove items, see the subtotal, and go to checkout, without leaving the page they're on.”</p>
+    </div>
+    <div class="step">
+      <h3>Cart page and checkout</h3>
+      <p class="show"><b>Show</b>Click “View full bag”, then “Continue to checkout”. Point at the steps at the top and the progress bar while you type an email.</p>
+      <p class="say">“This is the full cart, and then the checkout. The steps at the top show where they are: Bag, Your details, Confirm on WhatsApp. The customer fills in contact and delivery details, chooses shipping and payment, and the progress bar fills up as they go. The order summary stays visible on the side.”</p>
+    </div>
+    <h3>How the order reaches you</h3>
+    <div class="flow" aria-label="Order flow">
+      <div>Customer adds pieces and fills in the checkout</div>
+      <div>They press “Confirm order on WhatsApp”</div>
+      <div>WhatsApp opens with the full order already written</div>
+      <div>They press Send. It arrives on your WhatsApp</div>
+      <div>You confirm, send delivery cost and payment details</div>
+    </div>
+    <div class="step">
+      <p class="say">“This is the important part. There is no complicated payment system. When the customer confirms, WhatsApp opens with the whole order already written: products, sizes, total, name, address and an order reference. They just press Send, and you receive it on your WhatsApp. Then you confirm personally and send the delivery cost and payment details. It's simple, personal, and there are no monthly fees.”</p>
+    </div>
+  </section>
+
+  <section id="story">
+    <h2><span class="n">7</span>Our Story page</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Click Story. Scroll slowly through it.</p>
+      <p class="say">“This page tells your brand story. At the top, columns of your photos move slowly up and down. As you scroll, your brand statement lights up word by word. Then we show what the brand stands for, the journey from inspiration to the customer, a moving photo strip, and a final invitation to shop or chat on WhatsApp.”</p>
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <h2><span class="n">8</span>Lookbook page</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Click Lookbook. Click the mood filters, then click a photo to open it. Use the arrows.</p>
+      <p class="say">“The Lookbook is your editorial gallery, like a fashion magazine. Customers can filter by mood: Evening, Occasion, Resort, Everyday. Clicking any photo opens it full screen with its title and a shop link, and they can move through the photos with the arrows.”</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2><span class="n">9</span>Contact page</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Click Contact. Let the chat window play. Scroll to the message form and pick a topic.</p>
+      <p class="say">“The contact page feels like a personal concierge. The chat window shows how a styling conversation looks. Below, the customer chooses a topic, like sizing help or an order update, writes a message, and sends it by WhatsApp or email with one click. The message is already prepared for them. There are also direct links to WhatsApp, email, Instagram and the size guide, plus quick answers to common questions.”</p>
+    </div>
+  </section>
+
+  <section id="mobile">
+    <h2><span class="n">10</span>Phone view</h2>
+    <div class="step">
+      <p class="show"><b>Show</b>Open the site on a phone. Tap the menu icon, scroll the home page, add a product to the bag.</p>
+      <p class="say">“Most customers will shop on their phone, so every page was designed and tested for phones, from small ones like the iPhone SE to large ones, and tablets too. The menu becomes a simple icon, categories fit on one screen, and on product and cart pages the price and main button stay fixed at the bottom so it's always easy to buy.”</p>
+    </div>
+  </section>
+
+  <section id="qa">
+    <h2><span class="n">11</span>Questions the client may ask</h2>
+    <dl class="qa">
+      <dt>“Can customers pay online by card?”</dt>
+      <dd>“Right now orders are confirmed on WhatsApp and you send payment details, which keeps things personal and has no fees. Card payment can be added later if you want it.”</dd>
+      <dt>“Can I add or change products myself?”</dt>
+      <dd>“Products are stored in simple files with name, price, sizes, colours and photos. We can go through the easiest way for you to manage them after this demo.” <em>(Check with the developer before promising an admin panel.)</em></dd>
+      <dt>“Does it work on phones?”</dt>
+      <dd>“Yes. Every page was tested on small phones, normal phones, tablets, laptops and large screens.”</dd>
+      <dt>“Is it fast?”</dt>
+      <dd>“Yes. Photos are optimised to load quickly, and the site is built as fast static pages, so it's also cheap to host.”</dd>
+      <dt>“Can we change the text and photos?”</dt>
+      <dd>“Yes. Headlines, taglines, photos and prices can all be changed. Some text on the site today is example wording ready for your final version.”</dd>
+      <dt>“Where do the WhatsApp messages go?”</dt>
+      <dd>“To the WhatsApp number set on the site. We just need to confirm it's your correct business number.”</dd>
+    </dl>
+  </section>
+
+  <section id="end" class="close">
+    <h2>Closing</h2>
+    <p class="say">“So that's the full journey: a customer arrives, is inspired by the brand, finds a piece easily, adds it to the bag and sends the order to you on WhatsApp in a few taps. It looks luxury, works on every device, and stays personal, just like your brand. I'd love to hear your thoughts, and anything you'd like to change.”</p>
+  </section>
+
+  <footer>Tip: speak slowly, let each animation play for a second, and pause after each section to ask “Any questions so far?”</footer>
+</div>
+
+</html>

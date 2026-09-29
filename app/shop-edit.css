@@ -1,0 +1,70 @@
+/* Home: "Shop the complete edit" product grid. */
+.shop-edit{--se-ink:#16302a;--se-gold:#806025;padding:clamp(56px,6vw,88px) 0 0;scroll-margin-top:110px}
+
+.shop-edit-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.shop-edit-kicker{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--se-gold)}
+.shop-edit-kicker i{width:34px;height:1px;background:currentColor}
+.shop-edit-head h2{margin:14px 0 0;font:400 clamp(34px,3.8vw,56px)/1 Georgia,'Times New Roman',serif;letter-spacing:-.04em;color:var(--se-ink)}
+.shop-edit-head h2 em{color:var(--se-gold)}
+.shop-edit-all{display:inline-flex;align-items:center;gap:10px;padding-bottom:4px;border-bottom:1px solid var(--se-ink);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--se-ink);white-space:nowrap;transition:gap .35s cubic-bezier(.22,1,.36,1),color .3s,border-color .3s}
+.shop-edit-all:hover{gap:16px;color:var(--se-gold);border-color:var(--se-gold)}
+
+/* Filter chips */
+.shop-edit-filters{display:flex;flex-wrap:wrap;gap:8px;margin:clamp(20px,2.6vw,32px) 0 clamp(20px,2.4vw,30px)}
+.shop-edit-filters button{position:relative;padding:10px 20px;border:1px solid #16302a26;border-radius:40px;background:transparent;color:var(--se-ink);font-size:13px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:border-color .3s,color .3s}
+.shop-edit-filters button>span:not(.shop-edit-pill){position:relative;z-index:1}
+.shop-edit-filters button:hover{border-color:var(--se-ink)}
+.shop-edit-filters button.active{border-color:var(--se-ink);color:#fbf8f2}
+.shop-edit-pill{position:absolute;inset:-1px;border-radius:40px;background:var(--se-ink)}
+.shop-edit-filters button:focus-visible{outline:2px solid var(--se-gold);outline-offset:3px}
+
+/* Grid */
+.shop-edit-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(20px,2vw,28px) clamp(12px,1.4vw,20px)}
+.shop-card{display:block;color:var(--se-ink);outline:none}
+.shop-card-media{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;border-radius:18px;background:#ebe5da;box-shadow:0 18px 36px -26px #0f2b2380;transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s}
+.shop-card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s,transform 1.2s cubic-bezier(.22,1,.36,1)}
+.shop-card-media:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,#0f2b2359);opacity:0;transition:opacity .5s}
+.shop-card-media:before{content:'';position:absolute;inset:10px;z-index:1;border:1px solid #fbf8f2b3;border-radius:12px;opacity:0;transform:scale(1.04);transition:opacity .5s,transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.shop-card-cta{position:absolute;z-index:2;left:12px;right:12px;bottom:12px;display:flex;align-items:center;justify-content:space-between;padding:8px 8px 8px 16px;border-radius:40px;background:#fbf8f2;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:0;transform:translateY(16px);transition:opacity .45s,transform .55s cubic-bezier(.22,1,.36,1)}
+.shop-card-cta i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--se-ink);color:#fbf8f2;font-style:normal;transition:transform .35s}
+
+.shop-card-info{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px 4px 0}
+.shop-card-info>span{display:flex;flex-direction:column;min-width:0}
+.shop-card-info small{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--se-gold)}
+.shop-card-info strong{margin-top:4px;font:400 clamp(15px,1.25vw,18px)/1.25 Georgia,serif;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shop-card-info b{flex:none;padding:4px 10px;border:1px solid #16302a1f;border-radius:20px;font-size:13px;font-weight:600;transition:background .3s,color .3s}
+
+@media(hover:hover){
+  .shop-card:hover .shop-card-media{transform:translateY(-6px);box-shadow:0 30px 50px -28px #0f2b23aa}
+  .shop-card:hover .shop-card-media img{transform:scale(1.08)}
+  .shop-card:hover .shop-card-media:before{opacity:1;transform:none}
+  .shop-card:hover .shop-card-media:after{opacity:1}
+  .shop-card:hover .shop-card-cta{opacity:1;transform:none}
+  .shop-card:hover .shop-card-cta i{transform:rotate(45deg)}
+  .shop-card:hover .shop-card-info b{background:var(--se-ink);color:#fbf8f2}
+}
+.shop-card:focus-visible .shop-card-media{box-shadow:0 0 0 2px var(--se-gold)}
+.shop-card:focus-visible .shop-card-cta{opacity:1;transform:none}
+
+.shop-edit-more{display:flex;justify-content:center;margin-top:clamp(28px,3vw,44px)}
+.shop-edit-more button{display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 26px;border:1px solid var(--se-ink);border-radius:40px;background:transparent;color:var(--se-ink);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .35s,color .35s}
+.shop-edit-more button span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--se-ink);color:#fbf8f2;transition:background .35s,color .35s,transform .35s}
+.shop-edit-more button:hover{background:var(--se-ink);color:#fbf8f2}
+.shop-edit-more button:hover span{background:#fbf8f2;color:var(--se-ink);transform:translateY(2px)}
+
+@media(max-width:1100px){.shop-edit-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:860px){.shop-edit-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){
+  .shop-edit{padding-top:48px}
+  .shop-edit-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .shop-edit-filters{flex-wrap:nowrap;overflow-x:auto;margin-inline:-12px;padding-inline:12px;scrollbar-width:none}
+  .shop-edit-filters::-webkit-scrollbar{display:none}
+  .shop-edit-filters button{flex:none;padding:9px 16px;font-size:12px}
+  .shop-edit-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px}
+  .shop-card-media{border-radius:14px}
+  .shop-card-info{flex-direction:column;gap:6px;padding-top:10px}
+  .shop-card-info small{font-size:9px}
+  .shop-card-info strong{font-size:14px;white-space:normal}
+  .shop-card-info b{padding:3px 9px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.shop-card-media,.shop-card-media img,.shop-card-cta{transition:none}}

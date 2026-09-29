@@ -1,0 +1,240 @@
+/* Final responsive safety net — loaded last. Keeps every page inside the viewport and text readable on all devices. */
+html,body{max-width:100%;overflow-x:clip}
+img,svg,video{max-width:100%}
+
+/* Grids that must shrink below their content width */
+.ct-main,.ct-faq,.co-layout,.pd-layout,.st-heritage,.lb-end{min-width:0}
+.ct-main>*,.ct-faq>*,.co-main,.co-aside,.pd-panel,.pd-gallery{min-width:0}
+@media(max-width:960px){.ct-main,.ct-faq{grid-template-columns:minmax(0,1fr)}}
+.ct-channel strong,.pd-panel h1,.co-sum-text strong{overflow-wrap:anywhere}
+
+/* Home: filter chips scroll inside the page instead of past its edge */
+@media(max-width:640px){
+  .shop-edit-filters{margin-inline:0;padding-inline:0;max-width:100%}
+}
+
+/* Minimum readable text size on phones and tablets */
+@media(max-width:760px){
+  .premium-announcement strong,.premium-announcement span,.premium-announcement a{font-size:10.5px!important;letter-spacing:.06em}
+  .premium-announcement{height:auto!important;min-height:30px;padding:6px 12px!important}
+}
+.lux-look-img em{font-size:9.5px}
+.cat-info small,.shop-card-info small,.journal-pick-info small,.col-card-info small,.cart-pick small,.pd-crumbs{font-size:10px}
+.simple-footer-contact p,.simple-footer-bottom,.simple-footer-bottom span,.footer-credits,.footer-credits a,.footer-links a{font-size:11px!important}
+
+/* Comfortable tap targets on touch screens */
+@media(hover:none){
+  .footer-links a,.simple-footer-nav a{padding:6px 0;display:inline-block}
+}
+
+/* Remaining small labels raised to a readable minimum */
+.premium-announcement span,.premium-announcement strong,.premium-announcement a{font-size:10.5px!important}
+.lux-look-img em{font-size:10px}
+.floating-social span{font-size:11px}
+.confirmation-next>span{font-size:11px!important}
+.confirmation-help,.confirmation-help a{font-size:13px!important}
+.col-badge,.col-card-info small,.col-card-sizes{font-size:10px!important}
+@media(min-width:761px){.main-nav .nav-link{font-size:11px!important}}
+
+/* Home hero on small laptops (901–1180px): keep badge clear of the thumbnails and the tile clear of the text */
+@media(min-width:901px) and (max-width:1180px){
+  .lux-badge{right:auto!important;left:calc(clamp(78px,15vh,118px) / -2.6)!important;top:3%!important}
+  .lux-look-wrap{--look-w:clamp(112px,17vh,150px);left:calc(var(--look-w) * -.55)}
+  .lux-hero-copy p{max-width:360px}
+}
+.lux-look-img em{white-space:nowrap;letter-spacing:.1em}
+
+/* Brand quote in the home hero */
+.lux-quote{position:relative;display:flex;align-items:center;gap:10px;max-width:520px;margin:clamp(12px,2.2vh,20px) 0 0;padding-left:14px;border-left:2px solid var(--hero-gold,#e2c48c);font:italic 400 clamp(15px,min(1.5vw,2.6vh),20px)/1.4 Georgia,'Times New Roman',serif;letter-spacing:.005em;color:#f7f3eae6}
+.lux-quote span{font-size:1.5em;line-height:0;color:var(--hero-gold,#e2c48c)}
+.lux-quote span:first-child{margin-right:-6px}
+.lux-quote span:last-child{margin-left:-6px}
+.lux-hero .lux-quote+.lux-copy-swap h1{margin-top:clamp(8px,1.8vh,18px)}
+@media(max-width:560px){.lux-quote{font-size:15px;padding-left:12px}}
+
+/* Instagram: official brand gradient */
+.floating-social-instagram,.ct-channel-ig .ct-channel-icon{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)!important;color:#fff!important}
+@media(min-width:901px) and (max-height:700px){.lux-hero .lux-proof{display:none!important}}
+.lux-quote{display:block}
+.lux-quote span:first-child{margin-right:2px}
+.lux-quote span:last-child{margin-left:2px}
+.lux-quote span{vertical-align:-.12em}
+@media(min-width:901px) and (max-height:820px){.lux-hero .lux-stats{display:none!important}.lux-hero .lux-proof{display:flex}}
+.lux-quote{border-left:0;padding-left:0;line-height:1.45}
+
+/* ===== Mobile refinements ===== */
+
+/* 1. Hamburger menu icon (after the cart) */
+.nav-burger{display:none}
+@media(max-width:1000px){
+  .site-header .nav-burger{position:relative;display:grid;place-content:center;gap:4px;width:40px;height:40px;padding:0!important;border:1px solid #16302a26;border-radius:50%;background:#fffdf8;cursor:pointer;transition:background .3s,border-color .3s}
+  .nav-burger span{display:block;width:16px;height:1.6px;border-radius:2px;background:#16302a;transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .25s,width .3s}
+  .nav-burger span:nth-child(2){width:11px;justify-self:end}
+  .nav-burger:hover{border-color:#16302a}
+  .nav-burger.open{background:#16302a;border-color:#16302a}
+  .nav-burger.open span{background:#fbf8f2}
+  .nav-burger.open span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+  .nav-burger.open span:nth-child(2){opacity:0}
+  .nav-burger.open span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+  .nav-burger:focus-visible{outline:2px solid #b58a3c;outline-offset:2px}
+  .topbar-actions{margin-left:auto}
+}
+@media(max-width:380px){.topbar-actions{gap:6px!important}.nav-search-bar,.cart-icon-btn,.site-header .nav-burger{width:36px!important;height:36px!important}}
+
+/* 2. WhatsApp / Instagram: small vertical stack on phones */
+@media(max-width:760px){
+  .floating-socials{flex-direction:column!important;right:12px!important;bottom:14px!important;gap:8px!important}
+  .floating-social{width:38px!important;height:38px!important;border-width:1.5px!important}
+  .floating-social svg{width:17px!important;height:17px!important;min-width:17px!important;margin-left:9px!important}
+  .floating-social:hover,.floating-social:focus-visible{width:38px!important;border-radius:50%!important;transform:none!important}
+}
+
+/* 3. Home hero on phones: smaller, tidy image area */
+@media(max-width:560px){
+  .lux-hero-visual{padding-bottom:78px!important}
+  .lux-stage{width:min(76%,290px)!important;max-width:290px!important;margin-inline:auto;aspect-ratio:4/5!important}
+  .lux-badge{width:64px!important;height:64px!important;top:-14px!important;right:-26px!important}
+  .lux-look-wrap{--look-w:92px!important;left:-34px!important;bottom:4%!important}
+  .lux-look{padding:4px 4px 6px!important;border-radius:12px!important}
+  .lux-look-info strong{font-size:11px!important}
+  .lux-look-img em{display:none}
+  .lux-hotspot{display:none}
+  .lux-thumbs button{width:44px!important;height:54px!important}
+  .lux-spark{display:none}
+}
+
+/* 4. Explore by category on phones: all five visible, no side-scroll */
+@media(max-width:640px){
+  .cat-rail{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:10px!important;margin:0!important;padding:0!important;overflow:visible!important}
+  .cat-item{grid-column:span 2;flex:none!important;margin-top:0!important}
+  .cat-item:nth-child(4){grid-column:2 / span 2}
+  .cat-frame{aspect-ratio:3/4.2!important;border-radius:999px 999px 14px 14px!important}
+  .cat-info{padding:0 8px 10px!important;align-items:center;text-align:center}
+  .cat-info small,.cat-cta,.cat-index{display:none!important}
+  .cat-info strong{font-size:14px!important;margin:0!important}
+  .cat-shade{background:linear-gradient(180deg,transparent 55%,#0f2b23d9 100%)!important}
+}
+
+/* 5. Journal section on phones: smaller feature image and cards */
+@media(max-width:640px){
+  .journal{gap:10px}
+  .journal-feature{min-height:0!important;aspect-ratio:4/4.3;border-radius:18px}
+  .journal-feature>img{object-position:center 12%!important}
+  .journal-feature-copy{left:16px;right:16px;bottom:16px}
+  .journal h2{font-size:26px!important;margin:8px 0!important}
+  .journal-feature-text{font-size:13px!important}
+  .journal-btn{margin-top:12px;padding:6px 6px 6px 16px;font-size:12px}
+  .journal-btn b{width:28px;height:28px}
+  .journal-stamp{width:62px!important;height:62px!important;top:12px!important;right:12px!important}
+  .journal-stamp text{font-size:10.5px}
+  .journal-stamp em{font-size:13px}
+  .journal-link-wrap{grid-column:span 1}
+  .journal{grid-template-columns:1fr 1fr!important}
+  .journal-feature-wrap,.journal-trending{grid-column:1 / -1!important}
+  .journal-link{min-height:0!important;aspect-ratio:3/4}
+  .journal-link-copy{left:12px!important;right:12px!important;bottom:52px!important}
+  .journal-link-copy strong{font-size:17px!important}
+  .journal-link-copy small{font-size:10px}
+  .journal-link i{width:30px!important;height:30px!important;left:12px!important;bottom:12px!important}
+}
+
+/* 6. Shop the complete edit on phones: slightly smaller images */
+@media(max-width:640px){
+  .shop-edit-grid{gap:16px 10px!important}
+  .shop-card-media{aspect-ratio:4/4.5!important}
+  .shop-card-info strong{font-size:13.5px!important}
+}
+
+/* Compact footer on phones */
+@media(max-width:760px){
+  .site-footer{margin-top:36px!important;padding:26px 18px 76px!important}
+  .simple-footer-main{grid-template-columns:1fr auto!important;gap:14px 16px!important;padding-bottom:16px!important;align-items:center!important}
+  .simple-footer-brand{grid-column:1 / -1;display:flex;align-items:center;gap:14px;max-width:none!important}
+  .simple-footer-monogram{font-size:28px!important}
+  .simple-footer-brand p{margin:0!important;max-width:none!important;font-size:12px!important;line-height:1.5!important}
+  .simple-footer-nav{grid-template-columns:repeat(4,auto)!important;justify-content:start;gap:8px 16px!important;font-size:12.5px!important}
+  .simple-footer-contact{text-align:right}
+  .simple-footer-contact p{margin-bottom:2px!important;font-size:10px!important;letter-spacing:.08em!important}
+  .simple-footer-contact a{margin-left:auto;gap:6px!important;font-size:15px!important}
+  .simple-footer-contact a span{font-size:13px!important}
+  .simple-footer-bottom{flex-direction:column!important;align-items:flex-start!important;gap:8px!important;padding-top:12px!important}
+  .footer-links{gap:6px 14px!important;line-height:1.5!important}
+  .footer-credits{margin:0!important}
+}
+@media(max-width:420px){
+  .simple-footer-main{grid-template-columns:1fr!important}
+  .simple-footer-nav{grid-template-columns:repeat(4,auto)!important;justify-content:space-between}
+  .simple-footer-contact{display:flex;align-items:center;justify-content:space-between;text-align:left;padding-top:10px;border-top:1px solid #ffffff1a}
+  .simple-footer-contact p{margin:0!important}
+  .simple-footer-contact a{margin-left:0}
+}
+
+/* Cart drawer: list scrolls, footer sits flush at the bottom (no gap below) */
+.cart-drawer{--cd-pad:clamp(20px,4vw,36px);display:flex!important;flex-direction:column;padding:26px var(--cd-pad) 0!important;overflow:hidden!important;height:100dvh;min-height:0!important}
+.cart-drawer>.cart-header{flex:none}
+.cart-drawer .cart-items{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin-right:calc(var(--cd-pad) * -1);padding-right:var(--cd-pad);scrollbar-width:thin}
+.cart-drawer .cart-empty{flex:1 1 auto}
+.cart-drawer .cart-footer{position:relative!important;flex:none;margin:0 calc(var(--cd-pad) * -1)!important;padding:18px var(--cd-pad) calc(20px + env(safe-area-inset-bottom))!important;background:#fffdf8!important;border-top:1px solid #e6dcc8!important;box-shadow:0 -18px 30px -24px #0f2b2340}
+.cart-drawer .cart-footer .totals-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cart-drawer .cart-footer .totals-row strong{font:400 24px Georgia,serif;color:#16302a}
+.cart-drawer .cart-footer .primary-button{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:50px;font-size:14px;letter-spacing:.03em}
+.cart-drawer .cart-view-link{margin-top:12px!important}
+@media(max-width:760px){.cart-drawer{--cd-pad:18px;padding-top:22px!important}}
+.cart-backdrop{z-index:190!important}.cart-drawer{z-index:200!important}
+body:has(.cart-drawer) .floating-socials{opacity:0;visibility:hidden;transition:opacity .2s}
+
+/* Journal section on laptops/desktops: more compact */
+@media(min-width:861px){
+  .journal{gap:12px!important}
+  .journal-feature{min-height:clamp(380px,32vw,470px)!important;border-radius:20px}
+  .journal-feature-copy{left:clamp(20px,2.4vw,32px);right:clamp(20px,2.4vw,32px);bottom:clamp(20px,2.4vw,30px)}
+  .journal h2{font-size:clamp(28px,2.7vw,40px)!important;margin:10px 0 8px!important}
+  .journal-feature-text{font-size:14px;max-width:320px}
+  .journal-btn{margin-top:16px;padding:6px 6px 6px 18px;font-size:12.5px}
+  .journal-btn b{width:28px;height:28px}
+  .journal-stamp{width:80px!important;height:80px!important}
+  .journal-link{min-height:clamp(220px,19vw,280px)!important;border-radius:18px}
+  .journal-link-copy{left:16px;bottom:16px}
+  .journal-link-copy strong{font-size:clamp(19px,1.7vw,24px)}
+  .journal-link i{width:34px;height:34px;right:14px;bottom:16px}
+  .journal-trending{padding:14px 16px;border-radius:18px}
+  .journal-trending-head{margin-bottom:8px}
+  .journal-pick{padding:6px}
+  .journal-pick-img{width:48px;height:60px;border-radius:10px}
+  .journal-pick-info strong{font-size:14px}
+  .journal-pick-info b{font-size:12.5px}
+}
+@media(min-width:861px){
+  .journal{grid-template-rows:clamp(230px,20vw,290px) auto!important;align-items:stretch}
+  .journal-feature-wrap,.journal-link-wrap{min-height:0}
+  .journal-feature{height:100%!important;min-height:0!important}
+  .journal-link{height:100%!important;min-height:0!important}
+}
+/* ResponsiveImage wraps <img> in <picture>: keep journal photos filling their cards */
+.journal-feature>picture,.journal-link>picture{position:absolute;inset:0;display:block}
+.journal-feature>picture img,.journal-link>picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.journal-feature>picture img{object-position:center 30%}
+.journal-link>picture img{object-position:center top;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.journal-link:hover>picture img{transform:scale(1.07)}
+.journal-feature>img,.journal-link>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:none;aspect-ratio:auto!important;object-fit:cover}
+.journal-feature>img{object-position:center 30%!important}
+@media(min-width:861px){.journal-feature-wrap{contain:size;height:auto!important}.journal-trending{align-self:start}}
+@media(min-width:861px){.journal-feature-wrap{height:0!important;min-height:100%!important;overflow:visible}.journal-feature{height:100%!important}}
+@media(min-width:861px){.journal-feature-wrap{position:relative;height:auto!important;min-height:0!important;contain:none}.journal-feature{position:absolute!important;inset:0;height:auto!important}}
+.journal{content-visibility:visible!important;contain-intrinsic-size:none!important}
+
+/* New glowing brand logo in the header */
+.site-header .logo-crop.logo-glow{position:relative;display:block;width:108px!important;height:72px!important;overflow:hidden;border-radius:12px;mix-blend-mode:normal!important;background:#050b08;box-shadow:0 6px 18px -8px #0f2b2399}
+.site-header .logo-crop.logo-glow img{position:absolute!important;inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;max-width:none;object-fit:cover;transform:scale(1.18);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.site-header .brand-mark:hover .logo-glow img{transform:scale(1.26)}
+@media(max-width:760px){.site-header .logo-crop.logo-glow{width:90px!important;height:60px!important;border-radius:10px}}
+@media(max-width:380px){.site-header .logo-crop.logo-glow{width:80px!important;height:53px!important}}
+.site-header .logo-crop.logo-glow img{transform:scale(1.06);filter:brightness(1.75) saturate(1.15) contrast(1.05)}.site-header .brand-mark:hover .logo-glow img{transform:scale(1.12)}
+
+/* Clean RTW logo (transparent) in the header */
+.site-header .logo-crop.logo-rtw{position:static;display:block;width:auto!important;height:auto!important;overflow:visible;border-radius:0;background:none;box-shadow:none;mix-blend-mode:normal!important}
+.site-header .logo-crop.logo-rtw img{position:static!important;display:block;width:auto!important;height:54px!important;max-width:none;object-fit:contain;transform:none;filter:none;transition:opacity .3s}
+.site-header .brand-mark:hover .logo-rtw img{opacity:.85;transform:none}
+@media(max-width:760px){.site-header .logo-crop.logo-rtw img{height:44px!important}}
+@media(max-width:380px){.site-header .logo-crop.logo-rtw img{height:40px!important}}
+@media(min-width:1001px){.site-header{min-height:76px!important}}

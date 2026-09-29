@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Product name", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Price in ₦", name: "price", widget: "number", min: 0 }
+      - { label: "Category", name: "category", widget: "select", options: ["Dresses", "Sets", "Tops", "Skirts", "Evening"] }
+      - { label: "Sizes available", name: "sizes", widget: "select", multiple: true, options: ["XS", "S", "M", "L", "XL", "XXL", "One Size"] }
+      - { label: "Colour(s)", name: "colors", widget: "string" }
+      - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+      - { label: "Short description", name: "shortDescription", widget: "text" }
+      - { label: "Full description", name: "fullDescription", widget: "text" }
+      - { label: "Fabric & care details", name: "fabricCare", widget: "text" }
+      - { label: "Featured on homepage?", name: "featured", widget: "boolean", default: false }
+      - { label: "New arrival?", name: "newArrival", widget: "boolean", default: false }
+      - { label: "Sold out?", name: "soldOut", widget: "boolean", default: false }
+      - { label: "Display order", name: "displayOrder", widget: "number", default: 0 }
+
+  - name: "pages"
+    label: "Pages"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Site settings"
+    editor:
+      preview: false
+    files:
+      - label: "Brand settings"
+        name: "settings"
+        file: "content/site.json"
+        fields:
+          - { label: "Brand name", name: "brandName", widget: "string" }
+          - { label: "Instagram", name: "instagram", widget: "string" }
+          - { label: "WhatsApp number", name: "whatsappNumber", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Homepage hero text", name: "heroText", widget: "text" }

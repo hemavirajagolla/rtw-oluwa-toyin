@@ -1,0 +1,109 @@
+/* Home: "A mood for every moment" — expanding editorial gallery. */
+.mood{--mood-ink:#16302a;--mood-gold:#b58a3c;padding:clamp(56px,6vw,88px) 0 0}
+
+.mood-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:clamp(24px,3vw,40px)}
+.mood-kicker{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mood-gold)}
+.mood-kicker i{width:34px;height:1px;background:currentColor}
+.mood-head h2{margin:14px 0 0;font:400 clamp(34px,3.8vw,56px)/1 Georgia,'Times New Roman',serif;letter-spacing:-.04em;color:var(--mood-ink)}
+.mood-head h2 em{color:var(--mood-gold)}
+.mood-controls{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.mood-controls p{max-width:300px;margin:0;text-align:right;font-size:14px;line-height:1.6;color:#5f675f}
+.mood-controls>div{display:flex;align-items:center;gap:10px}
+.mood-count{margin-right:8px;font:italic 15px Georgia,serif;color:#8a8f86}
+.mood-count b{font-weight:400;color:var(--mood-ink);font-size:20px}
+.mood-controls button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #16302a33;border-radius:50%;background:transparent;color:var(--mood-ink);font-size:16px;cursor:pointer;transition:background .3s,color .3s,border-color .3s,transform .3s}
+.mood-controls button:hover{background:var(--mood-ink);border-color:var(--mood-ink);color:#fbf8f2;transform:translateY(-2px)}
+
+/* Panels */
+.mood-rail{display:flex;gap:clamp(8px,1vw,14px);height:clamp(420px,calc(100svh - 190px),600px)}
+.mood-panel{--tone:#16302a;position:relative;flex:1 1 0;min-width:0;overflow:hidden;border-radius:22px;background:var(--tone);isolation:isolate;box-shadow:0 26px 50px -32px #0f2b23aa;transition:flex-grow .9s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+.mood-panel.active{flex-grow:5.2}
+.mood-panel:not(.active):hover{flex-grow:1.3}
+.mood-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+
+.mood-cover{object-position:center 12%;transition:opacity .7s,transform 1.2s cubic-bezier(.22,1,.36,1),filter .6s;filter:saturate(.75) brightness(.8)}
+.mood-panel:not(.active):hover .mood-cover{transform:scale(1.06);filter:saturate(1) brightness(.9)}
+.mood-blur{opacity:0;transform:scale(1.25);filter:blur(26px) brightness(.55) saturate(1.1);transition:opacity .8s}
+.mood-figure{left:auto!important;right:0;width:auto!important;max-width:58%;object-fit:cover!important;object-position:center top;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 28%),linear-gradient(0deg,transparent 0%,#000 18%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 28%),linear-gradient(0deg,transparent 0%,#000 18%);mask-composite:intersect;opacity:0;transform:translateX(40px) scale(.96);transition:opacity .7s .15s,transform 1s .15s cubic-bezier(.22,1,.36,1)}
+.mood-tint{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,color-mix(in srgb,var(--tone) 85%,#000) 100%);opacity:.85;transition:opacity .6s,background .6s}
+
+.mood-panel.active .mood-cover{opacity:0}
+.mood-panel.active .mood-blur{opacity:1}
+.mood-panel.active .mood-figure{opacity:1;transform:none}
+.mood-panel.active .mood-tint{background:linear-gradient(90deg,color-mix(in srgb,var(--tone) 92%,#000) 0%,color-mix(in srgb,var(--tone) 55%,transparent) 50%,transparent 75%);opacity:1}
+
+.mood-hit{position:absolute;inset:0;z-index:3;width:100%;padding:0;border:0;background:transparent;cursor:pointer}
+.mood-panel.active .mood-hit{display:none}
+.mood-hit:focus-visible{outline:2px solid #e2c48c;outline-offset:-4px;border-radius:22px}
+
+/* Collapsed strip label */
+.mood-strip{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0;color:#fbf8f2;pointer-events:none;transition:opacity .4s}
+.mood-strip em{font:italic 15px Georgia,serif;color:#e2c48c}
+.mood-strip strong{text-shadow:0 2px 14px #000a,0 0 2px #0006;writing-mode:vertical-rl;transform:rotate(180deg);font:400 clamp(18px,1.6vw,24px) Georgia,serif;letter-spacing:.01em;white-space:nowrap}
+.mood-strip i{display:grid;place-items:center;width:34px;height:34px;border:1px solid #fbf8f280;border-radius:50%;font-style:normal;font-size:16px;transition:background .3s,color .3s,transform .4s}
+.mood-panel:not(.active):hover .mood-strip i{background:#fbf8f2;color:var(--tone);transform:rotate(90deg)}
+.mood-panel.active .mood-strip{opacity:0}
+
+/* Expanded copy */
+.mood-copy{position:absolute;z-index:2;left:clamp(24px,4vw,56px);bottom:clamp(28px,5vh,56px);width:min(46%,420px);color:#fbf8f2;pointer-events:none;opacity:0;transition:opacity .3s}
+.mood-panel.active .mood-copy{pointer-events:auto;opacity:1;transition-delay:.35s}
+.mood-num{display:block;margin-bottom:clamp(8px,3vh,28px);font:italic 400 clamp(64px,10vh,110px)/.9 Georgia,serif;color:transparent;-webkit-text-stroke:1px #e2c48c99}
+.mood-copy small{display:block;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#e2c48c}
+.mood-copy h3{margin:12px 0 14px;font:400 clamp(32px,3.4vw,52px)/1.02 Georgia,serif;letter-spacing:-.035em}
+.mood-copy h3>span{display:inline-block;overflow:hidden;vertical-align:top;margin-right:.22em;padding-bottom:.06em}
+.mood-copy h3>span>span{display:inline-block;transform:translateY(110%);transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.mood-panel.active .mood-copy h3>span>span{transform:none;transition-delay:calc(.4s + var(--i) * .08s)}
+.mood-copy p{margin:0;max-width:340px;font-size:15px;line-height:1.7;color:#fbf8f2cc;opacity:0;transform:translateY(12px);transition:opacity .6s,transform .7s cubic-bezier(.22,1,.36,1)}
+.mood-copy a{display:inline-flex;align-items:center;gap:12px;margin-top:24px;padding:14px 16px 14px 24px;border-radius:40px;background:#fbf8f2;color:var(--tone);font-size:13px;font-weight:700;letter-spacing:.04em;opacity:0;transform:translateY(12px);transition:opacity .6s,transform .7s cubic-bezier(.22,1,.36,1),gap .35s}
+.mood-copy a span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--tone);color:#fbf8f2;font-size:12px;transition:transform .35s}
+.mood-copy a:hover{gap:16px}
+.mood-copy a:hover span{transform:rotate(45deg)}
+.mood-panel.active .mood-copy p{opacity:1;transform:none;transition-delay:.6s}
+.mood-panel.active .mood-copy a{opacity:1;transform:none;transition-delay:.72s}
+
+/* Autoplay progress */
+.mood-progress{position:absolute;z-index:2;left:clamp(24px,4vw,56px);right:clamp(24px,4vw,56px);bottom:16px;height:2px;border-radius:2px;background:#fbf8f233;overflow:hidden;opacity:0;transition:opacity .4s}
+.mood-panel.active .mood-progress{opacity:1}
+.mood-progress span{position:absolute;inset:0;background:#e2c48c;transform-origin:left;animation:mood-progress 7s linear forwards}
+.mood-rail:hover .mood-progress span{animation-play-state:paused}
+.is-static .mood-progress span{animation:none}
+@keyframes mood-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Laptop */
+@media(max-width:1100px){
+  .mood-panel.active{flex-grow:4.2}
+  .mood-copy{width:min(52%,380px)}
+  .mood-figure{max-width:46%}
+}
+
+/* Tablet & phones: vertical accordion */
+@media(max-width:760px){
+  .mood{padding-top:48px}
+  .mood-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .mood-controls{align-items:flex-start;width:100%}
+  .mood-controls p{text-align:left;font-size:13px}
+  .mood-controls button{width:40px;height:40px}
+  .mood-rail{flex-direction:column;height:auto;gap:10px}
+  .mood-panel{flex:none;height:78px;border-radius:18px;transition:height .8s cubic-bezier(.22,1,.36,1)}
+  .mood-panel.active{height:min(128vw,540px)}
+  .mood-panel:not(.active):hover{flex-grow:0}
+  .mood-cover{object-position:center 18%}
+  .mood-blur{display:none}
+  .mood-figure{display:none}
+  .mood-panel.active .mood-cover{opacity:1;filter:none}
+  .mood-panel.active .mood-tint{background:linear-gradient(180deg,transparent 35%,color-mix(in srgb,var(--tone) 90%,#000) 92%)}
+  .mood-tint{background:color-mix(in srgb,var(--tone) 70%,transparent);opacity:.9}
+  .mood-strip{flex-direction:row;padding:0 18px;gap:14px;justify-content:flex-start}
+  .mood-strip strong{writing-mode:horizontal-tb;transform:none;font-size:19px}
+  .mood-strip i{margin-left:auto;width:30px;height:30px}
+  .mood-copy{left:20px;right:20px;bottom:28px;width:auto}
+  .mood-num{display:none}
+  .mood-copy h3{font-size:32px;margin:8px 0 10px}
+  .mood-copy p{font-size:14px}
+  .mood-copy a{margin-top:18px;padding:12px 14px 12px 20px}
+  .mood-progress{left:20px;right:20px;bottom:12px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mood-panel,.mood-cover,.mood-figure,.mood-copy,.mood-copy *{transition:none!important}
+}
