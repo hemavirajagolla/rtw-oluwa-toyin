@@ -1,57 +1,13 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oluwa Towin Admin</title>
-    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+    <meta name="robots" content="noindex, nofollow" />
+    <title>RTW by Elegant Moi · Admin</title>
   </head>
   <body>
-    <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
-    <script>
-      const CMS = window.CMS;
-      CMS.init({
-        config: {
-          backend: {
-            name: "git-gateway",
-            branch: "main",
-          },
-          media_folder: "public/images",
-          public_folder: "/images",
-          collections: [
-            {
-              name: "products",
-              label: "Products",
-              folder: "content/products",
-              create: true,
-              slug: "{{slug}}",
-              fields: [
-                { label: "Product name", name: "name", widget: "string" },
-                { label: "Slug", name: "slug", widget: "string" },
-                { label: "Price in ₦", name: "price", widget: "number" },
-                {
-                  label: "Category",
-                  name: "category",
-                  widget: "select",
-                  options: ["Dresses", "Sets", "Tops", "Skirts", "Evening"],
-                },
-                { label: "Sizes available", name: "sizes", widget: "list" },
-                { label: "Colour(s)", name: "colors", widget: "list" },
-                { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" } },
-                { label: "Short description", name: "shortDescription", widget: "text" },
-                { label: "Full description", name: "fullDescription", widget: "text" },
-                { label: "Fabric & care details", name: "fabricCare", widget: "text" },
-                { label: "Featured on homepage?", name: "featured", widget: "boolean", default: false },
-                { label: "New arrival?", name: "newArrival", widget: "boolean", default: false },
-                { label: "Sold out?", name: "soldOut", widget: "boolean", default: false },
-                { label: "Display order", name: "displayOrder", widget: "number" },
-              ],
-            },
-          ],
-        },
-      });
-    </script>
+    <!-- Sveltia CMS: a drop-in, Decap-compatible editor. It reads ./config.yml and saves product files to GitHub. -->
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   </body>
 </html>

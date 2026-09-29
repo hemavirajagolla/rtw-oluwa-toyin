@@ -1,53 +1,46 @@
+# Admin panel settings (Sveltia CMS, Decap-compatible).
+# Editors sign in with GitHub. Every "Publish" saves to the main branch,
+# then the GitHub Action rebuilds the site and Hostinger deploys it.
 backend:
-  name: git-gateway
+  name: github
+  repo: hemavirajagolla/rtw-oluwa-toyin
   branch: main
 
-media_folder: "public/images"
-public_folder: "/images"
+# Photos uploaded from the admin panel go here.
+media_folder: "public/images/products"
+public_folder: "/images/products"
+
+site_url: https://rtw-demo.n-visionsoft.com
+display_url: https://rtw-demo.n-visionsoft.com
 
 collections:
   - name: "products"
     label: "Products"
+    label_singular: "Product"
     folder: "content/products"
     create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
     slug: "{{slug}}"
+    summary: "{{name}} · ₦{{price}} · {{category}}"
+    sortable_fields: ["name", "price", "category", "displayOrder"]
     fields:
       - { label: "Product name", name: "name", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Price in ₦", name: "price", widget: "number", min: 0 }
+      - { label: "Web address name (small letters and dashes, e.g. noir-evening-gown)", name: "slug", widget: "string" }
+      - { label: "Price (₦)", name: "price", widget: "number", value_type: "int", min: 0 }
       - { label: "Category", name: "category", widget: "select", options: ["Dresses", "Sets", "Tops", "Skirts", "Evening"] }
       - { label: "Sizes available", name: "sizes", widget: "select", multiple: true, options: ["XS", "S", "M", "L", "XL", "XXL", "One Size"] }
-      - { label: "Colour(s)", name: "colors", widget: "string" }
-      - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+      - { label: "Colours", name: "colors", widget: "list", hint: "Add one colour per line, e.g. Emerald" }
+      - label: "Photos"
+        name: "images"
+        widget: "list"
+        hint: "The first photo is the main one."
+        field: { label: "Photo", name: "image", widget: "image" }
       - { label: "Short description", name: "shortDescription", widget: "text" }
-      - { label: "Full description", name: "fullDescription", widget: "text" }
-      - { label: "Fabric & care details", name: "fabricCare", widget: "text" }
-      - { label: "Featured on homepage?", name: "featured", widget: "boolean", default: false }
+      - { label: "Full description", name: "fullDescription", widget: "text", required: false }
+      - { label: "Fabric & care", name: "fabricCare", widget: "text", required: false }
+      - { label: "Featured on home page?", name: "featured", widget: "boolean", default: false }
       - { label: "New arrival?", name: "newArrival", widget: "boolean", default: false }
       - { label: "Sold out?", name: "soldOut", widget: "boolean", default: false }
-      - { label: "Display order", name: "displayOrder", widget: "number", default: 0 }
-
-  - name: "pages"
-    label: "Pages"
-    folder: "content/pages"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "settings"
-    label: "Site settings"
-    editor:
-      preview: false
-    files:
-      - label: "Brand settings"
-        name: "settings"
-        file: "content/site.json"
-        fields:
-          - { label: "Brand name", name: "brandName", widget: "string" }
-          - { label: "Instagram", name: "instagram", widget: "string" }
-          - { label: "WhatsApp number", name: "whatsappNumber", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Homepage hero text", name: "heroText", widget: "text" }
+      - { label: "Display order (1 shows first)", name: "displayOrder", widget: "number", value_type: "int", default: 10 }
