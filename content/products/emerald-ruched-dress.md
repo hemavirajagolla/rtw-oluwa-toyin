@@ -20,6 +20,6 @@ fullDescription: Crafted with a fluid drape and refined structure, the Emerald R
 fabricCare: Silk blend. Dry clean only. Handle with care.
 featured: true
 newArrival: true
-soldOut: false
+soldOut: true
 displayOrder: 1
 ---
