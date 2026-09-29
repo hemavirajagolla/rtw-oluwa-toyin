@@ -36,6 +36,7 @@ export default function HomePage() {
     image,
     altImage: product.images.find((src) => src !== image) ?? image,
     colors: product.colors,
+    soldOut: product.soldOut,
   }));
 
   return (
@@ -59,7 +60,7 @@ export default function HomePage() {
 
         <ShopEdit looks={looks} />
 
-        <JournalBento picks={products.slice(0, 3).map((product) => ({ slug: product.slug, name: product.name, category: product.category, price: product.price, image: product.images[0] }))} />
+        <JournalBento picks={products.slice(0, 3).map((product) => ({ slug: product.slug, name: product.name, category: product.category, price: product.price, image: product.images[0], soldOut: product.soldOut }))} />
       </div>
     </div>
   );

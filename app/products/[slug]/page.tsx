@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const related = getAllProducts()
     .filter((item) => item.slug !== product.slug)
     .slice(0, 4)
-    .map((item) => ({ slug: item.slug, name: item.name, category: item.category, price: item.price, image: item.images[0] }));
+    .map((item) => ({ slug: item.slug, name: item.name, category: item.category, price: item.price, image: item.images[0], soldOut: item.soldOut }));
 
   return (
     <div className="page-shell">

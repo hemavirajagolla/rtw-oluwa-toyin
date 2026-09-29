@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { formatNaira } from "@/lib/currency";
 
-export type SearchProduct = { slug: string; name: string; category: string; price: number; image: string; colors: string[]; text: string };
+export type SearchProduct = { slug: string; name: string; category: string; price: number; image: string; colors: string[]; text: string; soldOut?: boolean };
 
 const PAGES = [
   { title: "Home", href: "/", text: "New season, featured edits and trending pieces", keywords: "home start main landing" },
@@ -143,7 +143,7 @@ export function SiteSearch({ products }: { products: SearchProduct[] }) {
                     <Link prefetch={false} key={item.slug} id={`search-opt-${index}`} role="option" aria-selected={cursor === index} href={`/products/${item.slug}`} className={`nav-search-row${cursor === index ? " active" : ""}`} onMouseEnter={() => setCursor(index)} onClick={close}>
                       <ResponsiveImage src={item.image} alt="" sizes="64px" />
                       <span><strong>{item.name}</strong><small>{item.category}</small></span>
-                      <b>{formatNaira(item.price)}</b>
+                      <b>{item.soldOut ? <em className="sold-inline">Sold out</em> : formatNaira(item.price)}</b>
                     </Link>
                   );
                 })}

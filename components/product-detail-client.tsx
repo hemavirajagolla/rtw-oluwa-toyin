@@ -11,7 +11,7 @@ import { useCart } from "@/components/cart-context";
 import type { Product } from "@/lib/products";
 import { formatNaira } from "@/lib/currency";
 
-type Related = { slug: string; name: string; category: string; price: number; image: string };
+type Related = { slug: string; name: string; category: string; price: number; image: string; soldOut?: boolean };
 
 const SWATCHES: Record<string, string> = {
   Onyx: "#1d1d1f", Black: "#1d1d1f", "Deep Green": "#1f4d3a", Emerald: "#0f6b4f", Ivory: "#f1e9da",
@@ -39,6 +39,7 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
   };
 
   const handleWhatsAppOrder = () => {
+    if (product.soldOut) return;
     const message = encodeURIComponent([
       "Hi RTW by Elegant Moi! I would like to order this piece.",
       "",
@@ -180,7 +181,7 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
             </button>
           </div>
           <div className="pd-secondary">
-            <button type="button" className="pd-wa" onClick={handleWhatsAppOrder}>
+            <button type="button" className="pd-wa" onClick={handleWhatsAppOrder} disabled={product.soldOut}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a12 12 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.2-3.5-8.4Z" /></svg>
               Order on WhatsApp
             </button>
@@ -235,7 +236,7 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
             {related.map((item, index) => (
               <motion.div key={item.slug} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .7, delay: index * .08, ease }}>
                 <Link prefetch={false} href={`/products/${item.slug}`} className="cart-pick">
-                  <span className="cart-pick-img"><ResponsiveImage src={item.image} alt="" loading="lazy" /><i aria-hidden="true">&#8599;</i></span>
+                  <span className="cart-pick-img"><ResponsiveImage src={item.image} alt="" loading="lazy" />{item.soldOut ? <span className="sold-tag">Sold out</span> : null}<i aria-hidden="true">&#8599;</i></span>
                   <small>{item.category}</small>
                   <strong>{item.name}</strong>
                   <b>{formatNaira(item.price)}</b>

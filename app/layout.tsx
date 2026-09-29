@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     image: product.images[0],
     colors: product.colors,
     text: product.shortDescription,
+    soldOut: product.soldOut,
   }));
 
   return (

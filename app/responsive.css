@@ -238,3 +238,14 @@ body:has(.cart-drawer) .floating-socials{opacity:0;visibility:hidden;transition:
 @media(max-width:760px){.site-header .logo-crop.logo-rtw img{height:44px!important}}
 @media(max-width:380px){.site-header .logo-crop.logo-rtw img{height:40px!important}}
 @media(min-width:1001px){.site-header{min-height:76px!important}}
+
+/* Sold-out marker used on every product card */
+.sold-tag{position:absolute;z-index:3;left:10px;top:10px;padding:5px 11px;border-radius:30px;background:#fbf8f2eb;color:#681c36;font:700 10px/1 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 4px 12px -6px #0006}
+.sold-tag-sm{left:4px;top:4px;padding:3px 6px;font-size:8.5px;letter-spacing:.08em}
+.journal-pick-img{position:relative}
+.cart-pick-img .sold-tag{top:10px}
+.shop-card-media:has(.sold-tag) img,.cart-pick-img:has(.sold-tag) img,.journal-pick-img:has(.sold-tag) img{filter:grayscale(.55) opacity(.8)}
+.sold-inline{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#681c36}
+.pd-wa:disabled{opacity:.45;cursor:not-allowed;background:#fff!important;color:#16302a!important;border-color:#16302a33!important}
+.pd-wa:disabled svg{fill:#8a8f86!important}
+.col-card-media:has(.col-badge-sold) img{filter:grayscale(.55) opacity(.8)}

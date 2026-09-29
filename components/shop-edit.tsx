@@ -17,6 +17,7 @@ export type Look = {
   image: string;
   altImage: string;
   colors: string[];
+  soldOut?: boolean;
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -70,6 +71,7 @@ export function ShopEdit({ looks }: { looks: Look[] }) {
               <Link prefetch={false} href={`/products/${item.slug}`} className="shop-card">
                 <span className="shop-card-media">
                   <ResponsiveImage src={item.image} alt={`${item.name}, look ${item.look}`} loading="lazy" decoding="async" style={{ objectPosition: focus(item.image) }} />
+                  {item.soldOut ? <span className="sold-tag">Sold out</span> : null}
                   <span className="shop-card-cta">View piece <i aria-hidden="true">&#8599;</i></span>
                 </span>
                 <span className="shop-card-info">

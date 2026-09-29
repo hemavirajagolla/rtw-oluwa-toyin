@@ -7,7 +7,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { formatNaira } from "@/lib/currency";
 
-type Pick = { slug: string; name: string; category: string; price: number; image: string };
+type Pick = { slug: string; name: string; category: string; price: number; image: string; soldOut?: boolean };
 
 const links = [
   { href: "/collections/evening", kicker: "After dark", title: "Evening", text: "Shimmer, drama and quiet poise.", image: "/images/toyin/toyinimg-10.webp" },
@@ -68,7 +68,7 @@ export function JournalBento({ picks }: { picks: Pick[] }) {
           {picks.map((pick, index) => (
             <motion.div key={pick.slug} initial={reduced ? false : { opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .7, delay: .4 + index * .1, ease }}>
               <Link prefetch={false} href={`/products/${pick.slug}`} className="journal-pick">
-                <span className="journal-pick-img"><ResponsiveImage src={pick.image} alt="" loading="lazy" decoding="async" /></span>
+                <span className="journal-pick-img"><ResponsiveImage src={pick.image} alt="" loading="lazy" decoding="async" />{pick.soldOut ? <span className="sold-tag sold-tag-sm">Sold</span> : null}</span>
                 <span className="journal-pick-info">
                   <small>{pick.category}</small>
                   <strong>{pick.name}</strong>
