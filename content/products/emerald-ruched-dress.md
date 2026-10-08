@@ -1,7 +1,7 @@
 ---
 name: Emerald Ruched Dress
 slug: Emerald_Ruched_Dress
-price: 19
+price: 18
 category: Sets
 sizes:
   - S
