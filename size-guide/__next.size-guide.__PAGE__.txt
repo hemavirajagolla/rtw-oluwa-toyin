@@ -1,0 +1,20 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+7:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"ViewportBoundary"]
+8:I[97367,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"MetadataBoundary"]
+9:I[27201,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"IconMark"]
+b:I[39756,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"default"]
+c:I[37457,["/_next/static/chunks/0h2qsuyze9ds1.js","/_next/static/chunks/39s9e-nu4zx_2.js"],"default"]
+6:X
+e:X
+e:C
+0:{"buildId":"Xw71KfzJlfM_KPk_hH7OM","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-shell","children":[["$","div",null,{"className":"page-intro","children":[["$","p",null,{"className":"section-kicker","children":"Size guide"}],["$","h1",null,{"children":"Find your fit."}]]}],["$","div",null,{"className":"article-copy","children":["$","table",null,{"style":{"width":"100%","borderCollapse":"collapse"},"children":[["$","thead",null,{"children":["$","tr",null,{"children":[["$","th",null,{"style":{"textAlign":"left","borderBottom":"1px solid rgba(15,61,46,0.15)","padding":"10px 0"},"children":"Size"}],["$","th",null,{"style":{"textAlign":"left","borderBottom":"1px solid rgba(15,61,46,0.15)","padding":"10px 0"},"children":"Bust"}],["$","th",null,{"style":{"textAlign":"left","borderBottom":"1px solid rgba(15,61,46,0.15)","padding":"10px 0"},"children":"Waist"}],["$","th",null,{"style":{"textAlign":"left","borderBottom":"1px solid rgba(15,61,46,0.15)","padding":"10px 0"},"children":"Hip"}]]}]}],["$","tbody",null,{"children":[["$","tr",null,{"children":[["$","td",null,{"style":{"padding":"10px 0"},"children":"XS"}],["$","td",null,{"children":"82 cm"}],["$","td",null,{"children":"62 cm"}],["$","td",null,{"children":"88 cm"}]]}],["$","tr",null,{"children":[["$","td",null,{"style":{"padding":"10px 0"},"children":"S"}],["$","td",null,{"children":"86 cm"}],["$","td",null,{"children":"66 cm"}],["$","td",null,{"children":"92 cm"}]]}],["$","tr",null,{"children":[["$","td",null,{"style":{"padding":"10px 0"},"children":"M"}],["$","td",null,{"children":"90 cm"}],["$","td",null,{"children":"70 cm"}],["$","td",null,{"children":"96 cm"}]]}],["$","tr",null,{"children":[["$","td",null,{"style":{"padding":"10px 0"},"children":"L"}],["$","td",null,{"children":"96 cm"}],["$","td",null,{"children":"76 cm"}],["$","td",null,{"children":"102 cm"}]]}],["$","tr",null,{"children":[["$","td",null,{"style":{"padding":"10px 0"},"children":"XL"}],["$","td",null,{"children":"102 cm"}],["$","td",null,{"children":"82 cm"}],["$","td",null,{"children":"108 cm"}]]}]]}]]}]}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":"$@5","staleTime":"$6","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L7",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L8",null,{"children":["$","$3",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"RTW by Elegant Moi | Wear Your Story"}],["$","meta","1",{"name":"description","content":"Luxury African ready-to-wear for customers across Nigeria, with a refined editorial shopping experience."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L9","3",{}]]}]}]}],null]}],"isPartial":"$@a","staleTime":"$6","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lb",null,{"parallelRouterKey":"children","template":["$","$Lc",null,{}]}]]}],"isPartial":"$@d","staleTime":"$6","varyParams":"$e"}],"isUpgradeableISRFallback":false,"a":"$@f","rootVaryParams":null,"needsRuntimeRequest":"$@10"}
+4:null
+10:true
+6:300
+6:C
+f:0
+a:"$undefined"
+d:"$undefined"
+5:"$undefined"
