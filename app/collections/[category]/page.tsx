@@ -13,7 +13,10 @@ const COPY: Record<string, { accent: string; text: string }> = {
 };
 
 export function generateStaticParams() {
-  return getCategoryList().map((category) => ({ category: category.toLowerCase() }));
+  // Only categories that still have products get a page, so deleting products in the admin never breaks the build.
+  return getCategoryList()
+    .filter((category) => getProductsByCategory(category).length > 0)
+    .map((category) => ({ category: category.toLowerCase() }));
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
@@ -31,7 +34,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   const copy = COPY[categoryName] ?? { accent: "edit.", text: "Explore every piece in this edit." };
   const images = [...new Set(inCategory.flatMap((product) => product.images))];
-  while (images.length < 3) images.push(...getAllProducts().map((product) => product.images[0]).filter((src) => !images.includes(src)).slice(0, 3 - images.length));
+  // The header needs three photos: top up from other products, then from fixed brand photos (never loops).
+  const fallback = ["/images/toyin/toyinimg-13.webp", "/images/toyin/toyinimg-3.webp", "/images/toyin/toyinimg-14.webp"];
+  for (const src of [...getAllProducts().map((product) => product.images[0]), ...fallback]) {
+    if (images.length >= 3) break;
+    if (src && !images.includes(src)) images.push(src);
+  }
 
   return (
     <div className="page-shell col-page">
