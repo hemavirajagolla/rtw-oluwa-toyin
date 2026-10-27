@@ -5,7 +5,7 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MotionConfig } from "framer-motion";
+import { RevealObserver } from "@/components/reveal-observer";
 import { useCart } from "@/components/cart-context";
 import { useState } from "react";
 import { PageMotion } from "@/components/page-motion";
@@ -149,7 +149,7 @@ export function SiteShell({ children, searchIndex = [] }: { children: React.Reac
 
   return (
     <>
-      <MotionConfig reducedMotion="user">
+      <>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <div className="announcement-bar">
         <span>A little culture. A lot of you.</span>
@@ -195,7 +195,8 @@ export function SiteShell({ children, searchIndex = [] }: { children: React.Reac
 
       <Footer />
       <FloatingSocials />
-      </MotionConfig>
+      <RevealObserver />
+      </>
 
     </>
   );

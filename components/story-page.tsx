@@ -4,7 +4,8 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { MotionProvider } from "@/components/motion-provider";
 import { useRef } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -31,10 +32,10 @@ const STRIP =[3, 13, 10, 14, 9, 15, 12, 5, 6, 8].map((n) => `/images/toyin/toyin
 
 function Word({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.18, 1]);
-  return <motion.span style={{ opacity }} className={GOLD_WORDS.has(word) ? "st-gold" : undefined}>{word} </motion.span>;
+  return <m.span style={{ opacity }} className={GOLD_WORDS.has(word) ? "st-gold" : undefined}>{word} </m.span>;
 }
 
-export function StoryPage() {
+function StoryPageInner() {
   const reduced = useReducedMotion();
   const manifestoRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
@@ -55,15 +56,15 @@ export function StoryPage() {
       {/* Hero */}
       <section className="st-hero">
         <div className="st-hero-copy">
-          <motion.span className="st-kicker" {...rise(0)} initial={false}><i aria-hidden="true" />Our story</motion.span>
-          <motion.h1 {...rise(.08)} initial={false}>Crafted with <em>African heart</em> and European elegance.</motion.h1>
-          <motion.p {...rise(.16)} initial={false}>RTW by Elegant Moi is a luxury African ready-to-wear label shaped by the rhythm of home, the confidence of the everyday and the grace of elevated dressing.</motion.p>
-          <motion.div className="st-hero-actions" {...rise(.24)}>
+          <m.span className="st-kicker" {...rise(0)} initial={false}><i aria-hidden="true" />Our story</m.span>
+          <m.h1 {...rise(.08)} initial={false}>Crafted with <em>African heart</em> and European elegance.</m.h1>
+          <m.p {...rise(.16)} initial={false}>RTW by Elegant Moi is a luxury African ready-to-wear label shaped by the rhythm of home, the confidence of the everyday and the grace of elevated dressing.</m.p>
+          <m.div className="st-hero-actions" {...rise(.24)}>
             <Link prefetch={false} href="/collections" className="st-btn st-btn-light">Explore the collection <b aria-hidden="true">&#8594;</b></Link>
             <a href="#st-heritage" className="st-btn st-btn-ghost">Read our story</a>
-          </motion.div>
+          </m.div>
         </div>
-        <motion.div className="st-hero-visual" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease }}>
+        <m.div className="st-hero-visual" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease }}>
           <div className="st-cols" aria-hidden="true">
             {HERO_COLS.map((col, colIndex) => (
               <div key={colIndex} className={`st-col st-col-${colIndex + 1}`}>
@@ -79,7 +80,7 @@ export function StoryPage() {
             <svg viewBox="0 0 100 100"><defs><path id="st-stamp-path" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" /></defs><text><textPath href="#st-stamp-path">WEAR YOUR OWN STORY &#8226; ELEGANT MOI &#8226; </textPath></text></svg>
             <em>&#10022;</em>
           </span>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* Manifesto */}
@@ -96,53 +97,53 @@ export function StoryPage() {
       {/* Heritage */}
       <section className="st-heritage" id="st-heritage">
         <div className="st-collage">
-          <motion.span className="st-collage-a" {...rise(0)}><ResponsiveImage src="/images/toyin/toyinimg-13.webp" alt="Heritage print gown with sculpted sleeves" loading="lazy" /></motion.span>
-          <motion.span className="st-collage-b" {...rise(.15)}><ResponsiveImage src="/images/toyin/toyinimg-10.webp" alt="Lace evening gown" loading="lazy" /></motion.span>
-          <motion.span className="st-collage-tag" {...rise(.3)}><b>&#10022;</b>Heritage meets the everyday</motion.span>
+          <m.span className="st-collage-a" {...rise(0)}><ResponsiveImage src="/images/toyin/toyinimg-13.webp" alt="Heritage print gown with sculpted sleeves" loading="lazy" /></m.span>
+          <m.span className="st-collage-b" {...rise(.15)}><ResponsiveImage src="/images/toyin/toyinimg-10.webp" alt="Lace evening gown" loading="lazy" /></m.span>
+          <m.span className="st-collage-tag" {...rise(.3)}><b>&#10022;</b>Heritage meets the everyday</m.span>
         </div>
         <div className="st-heritage-copy">
-          <motion.span className="st-kicker st-kicker-dark" {...rise(0)}><i aria-hidden="true" />Heritage meets the everyday</motion.span>
-          <motion.h2 {...rise(.08)}>Made to feel <em>like you.</em></motion.h2>
-          <motion.p {...rise(.16)}>Our collections are built around sculpted silhouettes, rich colour stories and refined tailoring that feels expressive without ever becoming loud.</motion.p>
-          <motion.p {...rise(.22)}>Every piece is intended to move beautifully between special occasions and a more modern, considered wardrobe — so you can wear your story, wherever the day takes you.</motion.p>
-          <motion.div className="st-pills" {...rise(.3)}>
+          <m.span className="st-kicker st-kicker-dark" {...rise(0)}><i aria-hidden="true" />Heritage meets the everyday</m.span>
+          <m.h2 {...rise(.08)}>Made to feel <em>like you.</em></m.h2>
+          <m.p {...rise(.16)}>Our collections are built around sculpted silhouettes, rich colour stories and refined tailoring that feels expressive without ever becoming loud.</m.p>
+          <m.p {...rise(.22)}>Every piece is intended to move beautifully between special occasions and a more modern, considered wardrobe — so you can wear your story, wherever the day takes you.</m.p>
+          <m.div className="st-pills" {...rise(.3)}>
             <span>Dresses</span><span>Sets</span><span>Tops</span><span>Skirts</span><span>Evening</span>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Values */}
       <section className="st-values">
-        <motion.div className="st-head" {...rise(0)}>
+        <m.div className="st-head" {...rise(0)}>
           <span className="st-kicker st-kicker-dark"><i aria-hidden="true" />What we stand for</span>
           <h2>Three things we <em>never compromise.</em></h2>
-        </motion.div>
+        </m.div>
         <div className="st-value-grid">
           {VALUES.map((value, index) => (
-            <motion.article key={value.title} className="st-value" {...rise(index * .12)}>
+            <m.article key={value.title} className="st-value" {...rise(index * .12)}>
               <span className="st-value-num">{String(index + 1).padStart(2, "0")}</span>
               <svg viewBox="0 0 32 32" aria-hidden="true"><path d={value.icon} /></svg>
               <h3>{value.title}</h3>
               <p>{value.text}</p>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </section>
 
       {/* Process */}
       <section className="st-process" ref={stepsRef}>
-        <motion.div className="st-head st-head-light" {...rise(0)}>
+        <m.div className="st-head st-head-light" {...rise(0)}>
           <span className="st-kicker"><i aria-hidden="true" />The journey</span>
           <h2>From inspiration <em>to you.</em></h2>
-        </motion.div>
+        </m.div>
         <div className="st-steps">
-          <span className="st-line" aria-hidden="true"><motion.span style={{ scaleX: reduced ? 1 : lineScale, scaleY: reduced ? 1 : lineScale }} /></span>
+          <span className="st-line" aria-hidden="true"><m.span style={{ scaleX: reduced ? 1 : lineScale, scaleY: reduced ? 1 : lineScale }} /></span>
           {STEPS.map((step, index) => (
-            <motion.div key={step.title} className="st-step" {...rise(index * .12)}>
+            <m.div key={step.title} className="st-step" {...rise(index * .12)}>
               <span className="st-dot">{String(index + 1).padStart(2, "0")}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>
@@ -155,7 +156,7 @@ export function StoryPage() {
       </section>
 
       {/* CTA */}
-      <motion.section className="st-cta" {...rise(0)}>
+      <m.section className="st-cta" {...rise(0)}>
         <span className="st-cta-spark" aria-hidden="true">&#10022;</span>
         <h2>Ready to wear <em>your own story?</em></h2>
         <p>Discover the collection, or talk to us for personal styling help.</p>
@@ -163,7 +164,11 @@ export function StoryPage() {
           <Link prefetch={false} href="/collections" className="st-btn st-btn-light">Shop the collection <b aria-hidden="true">&#8594;</b></Link>
           <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer" className="st-btn st-btn-ghost">Chat on WhatsApp</a>
         </div>
-      </motion.section>
+      </m.section>
     </div>
   );
+}
+
+export function StoryPage() {
+  return <MotionProvider><StoryPageInner /></MotionProvider>;
 }

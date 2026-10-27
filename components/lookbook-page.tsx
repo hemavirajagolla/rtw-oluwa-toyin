@@ -5,7 +5,8 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 import Link from "next/link";
 import { fullResolutionImage } from "@/lib/responsive-image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { MotionProvider } from "@/components/motion-provider";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
@@ -49,10 +50,10 @@ function Lightbox({ list, index, onClose, onMove }: { list: Shot[]; index: numbe
   }, [onClose, onMove]);
 
   return (
-    <motion.div className="lb-box" role="dialog" aria-modal="true" aria-label={shot.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
+    <m.div className="lb-box" role="dialog" aria-modal="true" aria-label={shot.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
       <div className="lb-box-inner" onClick={(event) => event.stopPropagation()}>
         <AnimatePresence mode="wait">
-          <motion.img key={shot.n} src={fullResolutionImage(src(shot.n))} alt={shot.title} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .98 }} transition={{ duration: .35, ease }} />
+          <m.img key={shot.n} src={fullResolutionImage(src(shot.n))} alt={shot.title} initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .98 }} transition={{ duration: .35, ease }} />
         </AnimatePresence>
         <div className="lb-box-cap">
           <small>{shot.mood} · {String(index + 1).padStart(2, "0")} / {String(list.length).padStart(2, "0")}</small>
@@ -64,11 +65,11 @@ function Lightbox({ list, index, onClose, onMove }: { list: Shot[]; index: numbe
       <button type="button" className="lb-box-btn lb-box-prev" onClick={(event) => { event.stopPropagation(); onMove(-1); }} aria-label="Previous photo">&#8592;</button>
       <button type="button" className="lb-box-btn lb-box-next" onClick={(event) => { event.stopPropagation(); onMove(1); }} aria-label="Next photo">&#8594;</button>
       <button type="button" className="lb-box-close" onClick={onClose} aria-label="Close">&times;</button>
-    </motion.div>
+    </m.div>
   );
 }
 
-export function LookbookPage() {
+function LookbookPageInner() {
   const reduced = useReducedMotion();
   const [mood, setMood] = useState("All");
   const [viewer, setViewer] = useState<{ list: Shot[]; index: number } | null>(null);
@@ -89,16 +90,16 @@ export function LookbookPage() {
     <div className="lb">
       {/* Cover */}
       <section className="lb-cover">
-        <motion.div className="lb-cover-top" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease }}>
+        <m.div className="lb-cover-top" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, ease }}>
           <span className="lb-kicker"><i aria-hidden="true" />Season 01 · 2026</span>
           <h1>The <em>Lookbook</em></h1>
           <p>Editorial frames and fabric stories — fifteen moments that capture how our pieces live, move and shine.</p>
-        </motion.div>
+        </m.div>
         <div className="lb-skyline" aria-hidden="true">
           {SKYLINE.map((n, index) => (
-            <motion.span key={n} className={`lb-sky lb-sky-${index + 1}`} initial={false} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.1, delay: .2 + Math.abs(index - 2) * .12, ease }}>
+            <m.span key={n} className={`lb-sky lb-sky-${index + 1}`} initial={false} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.1, delay: .2 + Math.abs(index - 2) * .12, ease }}>
               <ResponsiveImage src={src(n)} alt="" loading="eager" sizes="(max-width: 640px) 30vw, 20vw" />
-            </motion.span>
+            </m.span>
           ))}
         </div>
         <span className="lb-scroll" aria-hidden="true">Scroll <i /></span>
@@ -106,7 +107,7 @@ export function LookbookPage() {
 
       {/* Mosaic gallery */}
       <section className="lb-gallery">
-        <motion.div className="lb-gallery-head" {...rise(0)}>
+        <m.div className="lb-gallery-head" {...rise(0)}>
           <div>
             <span className="lb-kicker lb-kicker-dark"><i aria-hidden="true" />The gallery</span>
             <h2>Every <em>mood,</em> every moment.</h2>
@@ -114,17 +115,17 @@ export function LookbookPage() {
           <div className="lb-moods" role="tablist" aria-label="Filter by mood">
             {MOODS.map((item) => (
               <button type="button" role="tab" key={item} aria-selected={mood === item} className={mood === item ? "active" : ""} onClick={() => setMood(item)}>
-                {mood === item && <motion.span layoutId="lb-mood-pill" className="lb-mood-pill" transition={{ duration: reduced ? 0 : .4, ease }} />}
+                {mood === item && <m.span layoutId="lb-mood-pill" className="lb-mood-pill" transition={{ duration: reduced ? 0 : .4, ease }} />}
                 <span>{item}</span>
               </button>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div layout={!reduced} className="lb-mosaic">
+        <m.div layout={!reduced} className="lb-mosaic">
           <AnimatePresence mode="popLayout" initial={false}>
             {gallery.map((shot, index) => (
-              <motion.button
+              <m.button
                 layout={!reduced}
                 type="button"
                 key={shot.n}
@@ -143,14 +144,14 @@ export function LookbookPage() {
                   <strong>{shot.title}</strong>
                 </span>
                 <i aria-hidden="true">&#10530;</i>
-              </motion.button>
+              </m.button>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* Closing */}
-      <motion.section className="lb-end" {...rise(0)}>
+      <m.section className="lb-end" {...rise(0)}>
         <div className="lb-end-imgs" aria-hidden="true">
           <ResponsiveImage src={src(7)} alt="" loading="lazy" />
           <ResponsiveImage src={src(5)} alt="" loading="lazy" />
@@ -164,7 +165,7 @@ export function LookbookPage() {
             <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer" className="lb-btn lb-btn-ghost">Ask a stylist</a>
           </div>
         </div>
-      </motion.section>
+      </m.section>
 
       {mounted ? createPortal(
         <AnimatePresence>
@@ -174,4 +175,8 @@ export function LookbookPage() {
       ) : null}
     </div>
   );
+}
+
+export function LookbookPage() {
+  return <MotionProvider><LookbookPageInner /></MotionProvider>;
 }

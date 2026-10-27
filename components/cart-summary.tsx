@@ -4,7 +4,8 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { MotionProvider } from "@/components/motion-provider";
 import { useCart } from "@/components/cart-context";
 import { formatNaira } from "@/lib/currency";
 import { LOWEST_SHIPPING_FEE } from "@/lib/shipping";
@@ -13,7 +14,7 @@ type Suggestion = { slug: string; name: string; category: string; price: number;
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }) {
+function CartSummaryInner({ suggestions = [] }: { suggestions?: Suggestion[] }) {
   const { items, subtotal, updateQuantity, removeItem } = useCart();
   const reduced = useReducedMotion();
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -55,7 +56,7 @@ export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }
           <ul className="cart-list">
             <AnimatePresence initial={false}>
               {items.map((item) => (
-                <motion.li
+                <m.li
                   key={`${item.slug}-${item.size}`}
                   layout={!reduced}
                   className="cart-item"
@@ -72,7 +73,7 @@ export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }
                     <div className="cart-item-controls">
                       <div className="cart-qty" role="group" aria-label={`Quantity for ${item.name}`}>
                         <button type="button" onClick={() => updateQuantity(item.slug, item.size, -1)} aria-label="Decrease quantity" disabled={item.quantity <= 1}>&minus;</button>
-                        <motion.span key={item.quantity} initial={reduced ? false : { y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{item.quantity}</motion.span>
+                        <m.span key={item.quantity} initial={reduced ? false : { y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{item.quantity}</m.span>
                         <button type="button" onClick={() => updateQuantity(item.slug, item.size, 1)} aria-label="Increase quantity">+</button>
                       </div>
                       <button type="button" className="cart-remove" onClick={() => removeItem(item.slug, item.size)}>
@@ -82,7 +83,7 @@ export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }
                     </div>
                   </div>
                   <b className="cart-item-total">{formatNaira(item.price * item.quantity)}</b>
-                </motion.li>
+                </m.li>
               ))}
             </AnimatePresence>
           </ul>
@@ -121,14 +122,14 @@ export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }
           </div>
           <div className="cart-picks-grid">
             {picks.map((pick, index) => (
-              <motion.div key={pick.slug} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .7, delay: index * .08, ease }}>
+              <m.div key={pick.slug} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .7, delay: index * .08, ease }}>
                 <Link prefetch={false} href={`/products/${pick.slug}`} className="cart-pick">
                   <span className="cart-pick-img"><ResponsiveImage src={pick.image} alt="" loading="lazy" /><i aria-hidden="true">&#8599;</i></span>
                   <small>{pick.category}</small>
                   <strong>{pick.name}</strong>
                   <b>{formatNaira(pick.price)}</b>
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -140,4 +141,8 @@ export function CartSummary({ suggestions = [] }: { suggestions?: Suggestion[] }
       </div>
     </div>
   );
+}
+
+export function CartSummary(props: Parameters<typeof CartSummaryInner>[0]) {
+  return <MotionProvider><CartSummaryInner {...props} /></MotionProvider>;
 }

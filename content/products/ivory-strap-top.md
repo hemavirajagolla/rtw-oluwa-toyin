@@ -4,10 +4,10 @@ slug: "ivory-strap-top"
 price: 115
 category: "Tops"
 sizes:
-  - "XS"
-  - "S"
-  - "M"
-  - "L"
+  - "8"
+  - "10"
+  - "12"
+  - "14"
 colors:
   - "Ivory"
 images:

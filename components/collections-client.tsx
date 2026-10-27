@@ -8,7 +8,7 @@ import { type CSSProperties, Suspense, useEffect, useMemo, useState } from "reac
 import type { Product } from "@/lib/products";
 import { formatNaira } from "@/lib/currency";
 
-const SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "One Size"];
+const SIZE_ORDER = ["6", "8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "One Size"];
 const PRICE_STEP = 1000; // price slider moves in ₦1,000 steps
 const SWATCHES: Record<string, string> = {
   Onyx: "#1d1d1f", Black: "#1d1d1f", "Deep Green": "#1f4d3a", Emerald: "#0f6b4f", Ivory: "#f1e9da",

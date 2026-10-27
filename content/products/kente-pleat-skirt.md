@@ -4,11 +4,11 @@ slug: "kente-pleat-skirt"
 price: 140
 category: "Skirts"
 sizes:
-  - "XS"
-  - "S"
-  - "M"
-  - "L"
-  - "XL"
+  - "8"
+  - "10"
+  - "12"
+  - "14"
+  - "16"
 colors:
   - "Saffron"
   - "Terracotta"

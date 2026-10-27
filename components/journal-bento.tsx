@@ -4,7 +4,6 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { formatNaira } from "@/lib/currency";
 
 type Pick = { slug: string; name: string; category: string; price: number; image: string; soldOut?: boolean };
@@ -14,20 +13,12 @@ const links = [
   { href: "/about", kicker: "Behind the label", title: "Our story", text: "The women and craft behind RTW.", image: "/images/toyin/toyinimg-7.webp" },
 ];
 
-const ease = [0.22, 1, 0.36, 1] as const;
 
 export function JournalBento({ picks }: { picks: Pick[] }) {
-  const reduced = useReducedMotion();
-  const rise = (delay: number) => ({
-    initial: reduced ? false : { opacity: 0, y: 40 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: .2 },
-    transition: { duration: .9, delay, ease },
-  });
 
   return (
     <section className="journal" aria-labelledby="journal-title">
-      <motion.div className="journal-feature-wrap" {...rise(0)}>
+      <div className="journal-feature-wrap" data-reveal>
         <Link prefetch={false} href="/lookbook" className="journal-feature">
           <ResponsiveImage src="/images/toyin/toyinimg-8.webp" alt="RTW editorial portrait" loading="lazy" decoding="async" />
           <span className="journal-feature-shade" aria-hidden="true" />
@@ -42,10 +33,10 @@ export function JournalBento({ picks }: { picks: Pick[] }) {
             <em>&#10022;</em>
           </span>
         </Link>
-      </motion.div>
+      </div>
 
       {links.map((link, index) => (
-        <motion.div key={link.href} className="journal-link-wrap" {...rise(.12 + index * .1)}>
+        <div key={link.href} className="journal-link-wrap" data-reveal>
           <Link prefetch={false} href={link.href} className="journal-link">
             <ResponsiveImage src={link.image} alt="" loading="lazy" decoding="async" />
             <span className="journal-link-shade" aria-hidden="true" />
@@ -56,17 +47,17 @@ export function JournalBento({ picks }: { picks: Pick[] }) {
             </span>
             <i aria-hidden="true">&#8599;</i>
           </Link>
-        </motion.div>
+        </div>
       ))}
 
-      <motion.div className="journal-trending" {...rise(.3)}>
+      <div className="journal-trending" data-reveal>
         <div className="journal-trending-head">
           <span><span className="journal-live" aria-hidden="true" />Trending now</span>
           <Link prefetch={false} href="/collections">Shop all <span aria-hidden="true">&#8594;</span></Link>
         </div>
         <div className="journal-trending-list">
           {picks.map((pick, index) => (
-            <motion.div key={pick.slug} initial={reduced ? false : { opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ duration: .7, delay: .4 + index * .1, ease }}>
+            <div key={pick.slug} data-reveal>
               <Link prefetch={false} href={`/products/${pick.slug}`} className="journal-pick">
                 <span className="journal-pick-img"><ResponsiveImage src={pick.image} alt="" loading="lazy" decoding="async" />{pick.soldOut ? <span className="sold-tag sold-tag-sm">Sold</span> : null}</span>
                 <span className="journal-pick-info">
@@ -76,10 +67,10 @@ export function JournalBento({ picks }: { picks: Pick[] }) {
                 </span>
                 <i aria-hidden="true">&#8599;</i>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

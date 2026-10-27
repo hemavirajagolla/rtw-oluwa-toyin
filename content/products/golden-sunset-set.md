@@ -4,10 +4,10 @@ slug: "golden-sunset-set"
 price: 220
 category: "Sets"
 sizes:
-  - "S"
-  - "M"
-  - "L"
-  - "XL"
+  - "10"
+  - "12"
+  - "14"
+  - "16"
 colors:
   - "Gold"
   - "Sand"

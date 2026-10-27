@@ -21,17 +21,27 @@ export type Product = {
 
 const productsDirectory = path.join(process.cwd(), "content", "products");
 
+// Web addresses typed in the admin panel are cleaned up ("Emerald_Ruched Dress" -> "emerald-ruched-dress") so links never break.
+function toSlug(value: string) {
+  return String(value).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+// UK / Nigerian dress sizes are numbers (6, 8, 10…); keep them in size order with any word sizes last.
+function sortSizes(sizes: string[]) {
+  return [...new Set(sizes)].sort((a, b) => (Number(a) || 999) - (Number(b) || 999));
+}
+
 function parseProduct(fileName: string): Product {
   const filePath = path.join(productsDirectory, fileName);
   const source = fs.readFileSync(filePath, "utf8");
   const { data } = matter(source);
 
   return {
-    slug: data.slug,
+    slug: toSlug(data.slug || fileName.replace(/.md$/, "")),
     name: data.name,
     price: Number(data.price),
     category: data.category,
-    sizes: Array.isArray(data.sizes) ? data.sizes : [],
+    sizes: Array.isArray(data.sizes) ? sortSizes(data.sizes.map(String)) : [],
     colors: Array.isArray(data.colors) ? data.colors : [],
     images: Array.isArray(data.images) ? data.images : [],
     shortDescription: data.shortDescription || "",

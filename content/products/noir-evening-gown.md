@@ -4,9 +4,9 @@ slug: "noir-evening-gown"
 price: 260
 category: "Evening"
 sizes:
-  - "S"
-  - "M"
-  - "L"
+  - "10"
+  - "12"
+  - "14"
 colors:
   - "Onyx"
   - "Deep Green"

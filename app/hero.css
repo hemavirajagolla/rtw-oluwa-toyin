@@ -276,3 +276,25 @@
 }
 @media(max-width:380px){.premium-home .premium-services>div{padding:12px 7px;gap:8px}.premium-home .premium-services small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.premium-home .premium-services>div{animation:none}}
+
+/* CSS-only hero transitions (replaces Framer Motion). Nothing animates on first paint; slide changes add .lux-animate. */
+.lux-arch-img{transform:scale(1.04)}
+.lux-arch-prev{z-index:0}
+.lux-arch .lux-arch-img:not(.lux-arch-prev){z-index:1}
+.lux-look-tilt{transform:rotate(-5deg)}
+.lux-animate .lux-arch-img:not(.lux-arch-prev){animation:lux-wipe 1.1s cubic-bezier(.22,1,.36,1) both}
+.lux-animate .lux-arch-prev{animation:lux-zoom-out 1.1s cubic-bezier(.22,1,.36,1) both}
+.lux-animate .lux-word>span{animation:lux-word-in .8s cubic-bezier(.22,1,.36,1) backwards}
+.lux-animate .lux-in-rise{animation:lux-rise .6s .35s cubic-bezier(.22,1,.36,1) backwards}
+.lux-animate .lux-bignum.lux-in-rise{animation-delay:0s}
+.lux-animate .lux-in-fade{animation:lux-fade .35s ease backwards}
+.lux-animate .lux-in-pop{animation:lux-pop .45s .9s cubic-bezier(.22,1,.36,1) both}
+.lux-animate .lux-in-card{animation:lux-card .7s .3s cubic-bezier(.22,1,.36,1) both}
+@keyframes lux-wipe{from{clip-path:inset(100% 0 0 0);transform:scale(1.18)}to{clip-path:inset(0 0 0 0);transform:scale(1.04)}}
+@keyframes lux-zoom-out{from{transform:scale(1.04)}to{transform:scale(1.1)}}
+@keyframes lux-word-in{from{transform:translateY(110%)}to{transform:none}}
+@keyframes lux-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes lux-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes lux-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes lux-card{from{opacity:0;transform:translateY(30px) rotate(-10deg)}to{opacity:1;transform:rotate(-5deg)}}
+@media(prefers-reduced-motion:reduce){.lux-animate *{animation:none!important}}

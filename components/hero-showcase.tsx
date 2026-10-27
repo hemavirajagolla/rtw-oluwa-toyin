@@ -5,7 +5,6 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 import Link from "next/link";
 import { responsiveImage } from "@/lib/responsive-image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { type CSSProperties, useRef, useState } from "react";
 import { formatNaira } from "@/lib/currency";
 
@@ -17,19 +16,17 @@ const slides = [
 ];
 
 const marquee = ["Luxury African ready-to-wear", "Delivery across Nigeria", "Styling on WhatsApp", "Made to be remembered", "New season now live"];
-const ease = [0.22, 1, 0.36, 1] as const;
 
 function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
   return <>{to}{suffix}</>;
 }
 
 function Words({ text, delay, className }: { text: string; delay: number; className?: string }) {
-  const reduced = useReducedMotion();
   return (
     <span className={className}>
       {text.split(" ").map((word, index) => (
         <span className="lux-word" key={`${word}-${index}`}>
-          <motion.span initial={false} animate={{ y: 0 }} exit={reduced ? undefined : { y: "-110%", transition: { duration: .35, delay: index * .03, ease } }} transition={{ duration: .8, delay: delay + index * .07, ease }}>{word}</motion.span>
+          <span style={{ animationDelay: `${delay + index * .07}s` }}>{word}</span>
         </span>
       ))}
     </span>
@@ -38,15 +35,22 @@ function Words({ text, delay, className }: { text: string; delay: number; classN
 
 export function HeroShowcase() {
   const [active, setActive] = useState(0);
-  const reduced = useReducedMotion();
+  const [changed, setChanged] = useState(false);
+  const [previous, setPrevious] = useState<number | null>(null);
   const touchX = useRef<number | null>(null);
   const slide = slides[active];
 
-  const go = (index: number) => setActive((index + slides.length) % slides.length);
+  const go = (index: number) => {
+    const next = (index + slides.length) % slides.length;
+    if (next === active) return;
+    setChanged(true);
+    setPrevious(active);
+    setActive(next);
+  };
 
   return (
     <section
-      className={`lux-hero${reduced ? " is-static" : ""}`}
+      className={`lux-hero${changed ? " lux-animate" : ""}`}
       style={{ "--glow": slide.glow } as CSSProperties}
       aria-roledescription="carousel"
       aria-label="Featured collections"
@@ -60,43 +64,39 @@ export function HeroShowcase() {
 
       <div className="lux-hero-inner">
         <div className="lux-hero-copy">
-          <motion.div className="lux-eyebrow" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, ease }}>
+          <div className="lux-eyebrow">
             <span className="lux-pulse" />
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span key={slide.kicker} initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .35 }}>{slide.kicker}</motion.span>
-            </AnimatePresence>
+            <span key={slide.kicker} className="lux-in-fade">{slide.kicker}</span>
             <b>{String(active + 1).padStart(2, "0")} <i>/ {String(slides.length).padStart(2, "0")}</i></b>
-          </motion.div>
+          </div>
 
-          <motion.p className="lux-quote" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15, ease }}>
+          <p className="lux-quote">
             <span aria-hidden="true">&ldquo;</span>Design for a woman who owns every moment.<span aria-hidden="true">&rdquo;</span>
-          </motion.p>
+          </p>
 
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={slide.title} className="lux-copy-swap" exit={{ opacity: reduced ? 0 : 1 }} transition={{ duration: .4 }}>
+          <div key={slide.title} className="lux-copy-swap">
               <h1>
                 <Words text={slide.title} delay={.05} />
                 <Words text={slide.accent} delay={.2} className="lux-accent" />
               </h1>
-              <motion.p initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10, transition: { duration: .3 } }} transition={{ duration: .6, delay: .35, ease }}>{slide.copy}</motion.p>
-            </motion.div>
-          </AnimatePresence>
+              <p className="lux-in-rise">{slide.copy}</p>
+          </div>
 
-          <motion.div className="lux-actions" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, delay: .5, ease }}>
+          <div className="lux-actions">
             <Link prefetch={false} href={slide.href} className="lux-btn lux-btn-primary">Discover the edit <span aria-hidden="true">&#8594;</span></Link>
             <Link prefetch={false} href="/collections" className="lux-btn lux-btn-ghost">Shop all</Link>
-          </motion.div>
+          </div>
 
-          <motion.div className="lux-proof" initial={false} animate={{ opacity: 1 }} transition={{ duration: .8, delay: .7 }}>
+          <div className="lux-proof">
             <span className="lux-proof-faces" aria-hidden="true">{slides.slice(0, 3).map((item) => <ResponsiveImage key={item.image} src={item.image} alt="" sizes="36px" />)}</span>
             <span><strong><CountUp to={10} suffix="K+" /></strong> clients styled worldwide</span>
-          </motion.div>
+          </div>
 
-          <motion.dl className="lux-stats" initial={false} animate={{ opacity: 1 }} transition={{ duration: .8, delay: .7 }}>
+          <dl className="lux-stats">
             <div><dt>Happy clients</dt><dd><CountUp to={10} suffix="K+" /></dd></div>
             <div><dt>Curated looks</dt><dd><CountUp to={15} /></dd></div>
             <div><dt>Ships to</dt><dd><CountUp to={30} suffix="+" /><small>countries</small></dd></div>
-          </motion.dl>
+          </dl>
         </div>
 
         <div
@@ -114,45 +114,36 @@ export function HeroShowcase() {
           <span className="lux-spark lux-spark-c" aria-hidden="true">&#10022;</span>
 
           <div className="lux-stage">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span key={active} className="lux-bignum" aria-hidden="true" initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: .6, ease }}>{String(active + 1).padStart(2, "0")}</motion.span>
-            </AnimatePresence>
-            <motion.div className="lux-arch" initial={false} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease }}>
-              <AnimatePresence initial={false}>
-                <motion.img
+            <span key={active} className="lux-bignum lux-in-rise" aria-hidden="true">{String(active + 1).padStart(2, "0")}</span>
+            <div className="lux-arch">
+              {previous !== null ? <img key={`prev-${slides[previous].image}`} {...responsiveImage(slides[previous].image, "(max-width: 560px) 270px, (max-width: 900px) 440px, 36vw")} alt="" aria-hidden="true" className="lux-arch-img lux-arch-prev" /> : null}
+              <img
                   key={slide.image}
-                  {...responsiveImage(slide.image, "(max-width: 640px) 80vw, 40vw")}
+                  {...responsiveImage(slide.image, "(max-width: 560px) 270px, (max-width: 900px) 440px, 36vw")}
                   alt={`${slide.kicker}: ${slide.title} ${slide.accent}`}
                   loading={active === 0 ? "eager" : "lazy"}
                   decoding="async"
                   fetchPriority={active === 0 ? "high" : "auto"}
-                  initial={false}
-                  animate={reduced ? { opacity: 1, zIndex: 1 } : { clipPath: "inset(0% 0% 0% 0%)", scale: 1.04, zIndex: 1 }}
-                  exit={{ zIndex: 0, scale: 1.1 }}
-                  transition={{ duration: reduced ? .2 : 1.1, ease }}
+                  className="lux-arch-img"
                 />
-              </AnimatePresence>
               <span className="lux-arch-shine" aria-hidden="true" />
-              <AnimatePresence initial={false}>
-                <motion.div key={slide.product.slug} className="lux-hotspot" style={{ left: `${slide.spot.x}%`, top: `${slide.spot.y}%` }} initial={false} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .4 }} transition={{ duration: .45, delay: .9, ease }}>
+                <div key={slide.product.slug} className="lux-hotspot lux-in-pop" style={{ left: `${slide.spot.x}%`, top: `${slide.spot.y}%` }}>
                   <Link prefetch={false} href={`/products/${slide.product.slug}`} aria-label={`Shop ${slide.product.name}`}>
                     <i aria-hidden="true" />
                     <span>{slide.product.name}<b>{formatNaira(slide.product.price)}</b></span>
                   </Link>
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+                </div>
+            </div>
 
-            <motion.svg className="lux-badge" viewBox="0 0 120 120" aria-hidden="true">
+            <svg className="lux-badge" viewBox="0 0 120 120" aria-hidden="true">
               <defs><path id="lux-badge-circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0" /></defs>
               <text><textPath href="#lux-badge-circle">WEAR YOUR OWN STORY &#8226; RTW ATELIER &#8226; </textPath></text>
               <circle cx="60" cy="60" r="20" />
               <path d="M52 68 68 52M56 52h12v12" />
-            </motion.svg>
+            </svg>
 
-            <motion.div className="lux-look-wrap">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div key={slide.product.slug} initial={false} animate={{ opacity: 1, y: 0, rotate: -5 }} exit={{ opacity: 0, y: -16, rotate: -2 }} transition={{ duration: .7, delay: .3, ease }}>
+            <div className="lux-look-wrap">
+                <div key={slide.product.slug} className="lux-look-tilt lux-in-card">
                   <Link prefetch={false} href={`/products/${slide.product.slug}`} className="lux-look">
                     <span className="lux-look-img">
                       <ResponsiveImage src={slide.product.image} sizes="120px" alt="" loading="lazy" decoding="async" style={"crop" in slide.product ? { objectPosition: slide.product.crop } : undefined} />
@@ -168,15 +159,14 @@ export function HeroShowcase() {
                       </span>
                     </span>
                   </Link>
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
+                </div>
+            </div>
           </div>
 
           <div className="lux-thumbs" role="tablist" aria-label="Choose a collection">
             {slides.map((item, index) => (
               <button type="button" role="tab" key={item.image} aria-selected={active === index} aria-label={`Show ${item.kicker}`}className={active === index ? "active" : ""} onClick={() => go(index)}>
-                <ResponsiveImage src={item.image} alt="" loading="lazy" decoding="async" />
+                <ResponsiveImage src={item.image} alt="" sizes="60px" loading="lazy" decoding="async" />
               </button>
             ))}
           </div>

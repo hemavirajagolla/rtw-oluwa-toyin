@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   // Keep static exports within the memory available on development machines.
-  experimental: { cpus: 2, inlineCss: true },
+  experimental: { cpus: 2 },
   images: {
     unoptimized: true,
   },

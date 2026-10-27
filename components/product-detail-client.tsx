@@ -6,7 +6,8 @@ import { ResponsiveImage } from "@/components/responsive-image";
 import Link from "next/link";
 import { fullResolutionImage, responsiveImage } from "@/lib/responsive-image";
 import { type PointerEvent, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { MotionProvider } from "@/components/motion-provider";
 import { useCart } from "@/components/cart-context";
 import type { Product } from "@/lib/products";
 import { formatNaira } from "@/lib/currency";
@@ -19,7 +20,7 @@ const SWATCHES: Record<string, string> = {
 };
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function ProductDetailClient({ product, related = [] }: { product: Product; related?: Related[] }) {
+function ProductDetailClientInner({ product, related = [] }: { product: Product; related?: Related[] }) {
   const { addToCart } = useCart();
   const reduced = useReducedMotion();
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "One Size");
@@ -99,7 +100,7 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
           <div className="pd-stage">
             <div className="pd-main" onPointerMove={onZoomMove} onPointerLeave={() => setZoom(null)}>
               <AnimatePresence mode="wait" initial={false}>
-                <motion.img
+                <m.img
                   key={activeImage}
                   {...responsiveImage(product.images[activeImage], "(max-width: 760px) 100vw, 50vw")}
                   {...(zoom ? { src: fullResolutionImage(product.images[activeImage]), srcSet: undefined } : {})}
@@ -135,7 +136,7 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
         </div>
 
         {/* Details */}
-        <motion.aside className="pd-panel" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease }}>
+        <m.aside className="pd-panel" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, ease }}>
           <span className="pd-kicker"><i aria-hidden="true" />{product.category}</span>
           <h1>{product.name}</h1>
           <div className="pd-price-row">
@@ -169,14 +170,14 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
           <div className="pd-buy">
             <div className="pd-qty" role="group" aria-label="Quantity">
               <button type="button" onClick={() => setQuantity((value) => Math.max(1, value - 1))} disabled={quantity <= 1} aria-label="Decrease quantity">&minus;</button>
-              <motion.span key={quantity} initial={reduced ? false : { y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{quantity}</motion.span>
+              <m.span key={quantity} initial={reduced ? false : { y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>{quantity}</m.span>
               <button type="button" onClick={() => setQuantity((value) => value + 1)} aria-label="Increase quantity">+</button>
             </div>
             <button type="button" className={`pd-add${added ? " added" : ""}`} onClick={handleAddToCart} disabled={product.soldOut}>
               <AnimatePresence mode="wait" initial={false}>
-                <motion.span key={cta} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: .25 }}>
+                <m.span key={cta} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }} transition={{ duration: .25 }}>
                   {added ? "✓ " : ""}{cta}{!added && !product.soldOut ? ` · ${formatNaira(product.price * quantity)}` : ""}
-                </motion.span>
+                </m.span>
               </AnimatePresence>
             </button>
           </div>
@@ -187,9 +188,9 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
             </button>
             <AnimatePresence>
               {added ? (
-                <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
+                <m.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
                   <Link prefetch={false} href="/cart" className="pd-viewbag">View bag &#8594;</Link>
-                </motion.div>
+                </m.div>
               ) : null}
             </AnimatePresence>
           </div>
@@ -210,17 +211,17 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
                   </button>
                   <AnimatePresence initial={false}>
                     {open ? (
-                      <motion.div className="pd-info-body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .35, ease }}>
+                      <m.div className="pd-info-body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .35, ease }}>
                         <p>{item.body}</p>
                         {item.link ? <Link prefetch={false} href={item.link.href}>{item.link.label} &#8599;</Link> : null}
-                      </motion.div>
+                      </m.div>
                     ) : null}
                   </AnimatePresence>
                 </div>
               );
             })}
           </div>
-        </motion.aside>
+        </m.aside>
       </div>
 
       {related.length ? (
@@ -234,14 +235,14 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
           </div>
           <div className="pd-related-grid">
             {related.map((item, index) => (
-              <motion.div key={item.slug} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .7, delay: index * .08, ease }}>
+              <m.div key={item.slug} initial={reduced ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .7, delay: index * .08, ease }}>
                 <Link prefetch={false} href={`/products/${item.slug}`} className="cart-pick">
                   <span className="cart-pick-img"><ResponsiveImage src={item.image} alt="" loading="lazy" />{item.soldOut ? <span className="sold-tag">Sold out</span> : null}<i aria-hidden="true">&#8599;</i></span>
                   <small>{item.category}</small>
                   <strong>{item.name}</strong>
                   <b>{formatNaira(item.price)}</b>
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -253,4 +254,8 @@ export function ProductDetailClient({ product, related = [] }: { product: Produc
       </div>
     </div>
   );
+}
+
+export function ProductDetailClient(props: Parameters<typeof ProductDetailClientInner>[0]) {
+  return <MotionProvider><ProductDetailClientInner {...props} /></MotionProvider>;
 }

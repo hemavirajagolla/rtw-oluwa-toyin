@@ -1,10 +1,12 @@
 "use client";
 
 import { ResponsiveImage } from "@/components/responsive-image";
+import { AppointmentForm } from "@/components/appointment-form";
 
 
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { MotionProvider } from "@/components/motion-provider";
 import { type FormEvent, useEffect, useState } from "react";
 
 const WHATSAPP = "916305615898";
@@ -57,14 +59,14 @@ function ChatLoop() {
       <div className="ct-chat-body">
         <AnimatePresence initial={false}>
           {visible.map((line, index) => (
-            <motion.p key={index} className={`ct-bubble ct-bubble-${line.from}`} initial={{ opacity: 0, y: 12, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: .4, ease }}>
+            <m.p key={index} className={`ct-bubble ct-bubble-${line.from}`} initial={{ opacity: 0, y: 12, scale: .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: .4, ease }}>
               {line.text}
-            </motion.p>
+            </m.p>
           ))}
           {typing ? (
-            <motion.span key="typing" className={`ct-typing ct-bubble-${CHAT[shown].from}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <m.span key="typing" className={`ct-typing ct-bubble-${CHAT[shown].from}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <i /><i /><i />
-            </motion.span>
+            </m.span>
           ) : null}
         </AnimatePresence>
       </div>
@@ -72,7 +74,7 @@ function ChatLoop() {
   );
 }
 
-export function ContactPage() {
+function ContactPageInner() {
   const reduced = useReducedMotion();
   const [topic, setTopic] = useState(TOPICS[0]);
   const [name, setName] = useState("");
@@ -100,30 +102,31 @@ export function ContactPage() {
       {/* Hero */}
       <section className="ct-hero">
         <div className="ct-hero-copy">
-          <motion.span className="ct-kicker" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }}><i aria-hidden="true" />The RTW concierge</motion.span>
-          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .08, ease }}>Let’s talk <em>style.</em></motion.h1>
-          <motion.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .16, ease }}>A second opinion on a silhouette, help with your size, or an update on your order — a real person from our team will answer you personally.</motion.p>
-          <motion.div className="ct-hero-actions" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .24, ease }}>
+          <m.span className="ct-kicker" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }}><i aria-hidden="true" />The RTW concierge</m.span>
+          <m.h1 initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .08, ease }}>Let’s talk <em>style.</em></m.h1>
+          <m.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .16, ease }}>A second opinion on a silhouette, help with your size, or an update on your order — a real person from our team will answer you personally.</m.p>
+          <m.div className="ct-hero-actions" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .24, ease }}>
             <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" className="ct-btn ct-btn-light"><Icon name="wa" />Chat on WhatsApp</a>
+            <a href="#book-appointment" className="ct-btn ct-btn-ghost">Book an appointment <span aria-hidden="true">&#8595;</span></a>
             <a href="#ct-write" className="ct-btn ct-btn-ghost">Write to us <span aria-hidden="true">&#8595;</span></a>
-          </motion.div>
-          <motion.ul className="ct-promise" initial={false} animate={{ opacity: 1 }} transition={{ duration: .8, delay: .4 }}>
+          </m.div>
+          <m.ul className="ct-promise" initial={false} animate={{ opacity: 1 }} transition={{ duration: .8, delay: .4 }}>
             <li><b>1:1</b>personal replies</li>
             <li><b>&#10022;</b>styling advice</li>
             <li><b>&#8599;</b>delivery across Nigeria</li>
-          </motion.ul>
+          </m.ul>
         </div>
 
-        <motion.div className="ct-hero-visual" initial={false} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease }}>
+        <m.div className="ct-hero-visual" initial={false} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease }}>
           <span className="ct-arch"><ResponsiveImage src="/images/toyin/toyinimg-10.webp" alt="" sizes="(max-width: 640px) 80vw, 40vw" loading="eager" /></span>
           <ChatLoop />
           <span className="ct-ring" aria-hidden="true" />
-        </motion.div>
+        </m.div>
       </section>
 
       {/* Composer + channels */}
       <section className="ct-main" id="ct-write">
-        <motion.form className="ct-form" onSubmit={sendWhatsApp} {...rise(0)}>
+        <m.form className="ct-form" onSubmit={sendWhatsApp} {...rise(0)}>
           <span className="ct-kicker ct-kicker-dark"><i aria-hidden="true" />Write to us</span>
           <h2>How can we <em>help you?</em></h2>
 
@@ -151,47 +154,49 @@ export function ContactPage() {
             <a href={mailLink} className="ct-btn ct-btn-outline"><Icon name="mail" />Send by email</a>
           </div>
           <p className="ct-note">Your message opens ready to send in WhatsApp or your email app — nothing is stored on this site.</p>
-        </motion.form>
+        </m.form>
 
         <div className="ct-channels">
-          <motion.a className="ct-channel ct-channel-wa" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" {...rise(.08)}>
+          <m.a className="ct-channel ct-channel-wa" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" {...rise(.08)}>
             <span className="ct-channel-icon"><Icon name="wa" /></span>
             <span><small>WhatsApp</small><strong>+91 63056 15898</strong><em>Fastest for sizing & orders</em></span>
             <i aria-hidden="true">&#8599;</i>
-          </motion.a>
-          <motion.a className="ct-channel" href={`mailto:${EMAIL}`} {...rise(.14)}>
+          </m.a>
+          <m.a className="ct-channel" href={`mailto:${EMAIL}`} {...rise(.14)}>
             <span className="ct-channel-icon"><Icon name="mail" /></span>
             <span><small>Email</small><strong>{EMAIL}</strong><em>For detailed enquiries</em></span>
             <i aria-hidden="true">&#8599;</i>
-          </motion.a>
-          <motion.a className="ct-channel ct-channel-ig" href={INSTAGRAM} target="_blank" rel="noreferrer" {...rise(.2)}>
+          </m.a>
+          <m.a className="ct-channel ct-channel-ig" href={INSTAGRAM} target="_blank" rel="noreferrer" {...rise(.2)}>
             <span className="ct-channel-icon"><Icon name="ig" /></span>
             <span><small>Instagram</small><strong>@oluwatowin</strong><em>New looks & behind the scenes</em></span>
             <i aria-hidden="true">&#8599;</i>
-          </motion.a>
-          <motion.div {...rise(.26)}>
+          </m.a>
+          <m.div {...rise(.26)}>
             <Link prefetch={false} className="ct-channel ct-channel-fit" href="/size-guide">
               <span className="ct-channel-icon"><Icon name="ruler" /></span>
               <span><small>Before you choose</small><strong>Find your perfect fit</strong><em>Open the size guide</em></span>
               <i aria-hidden="true">&#8599;</i>
             </Link>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
+      <AppointmentForm />
+
       {/* FAQ */}
       <section className="ct-faq">
-        <motion.div className="ct-faq-head" {...rise(0)}>
+        <m.div className="ct-faq-head" {...rise(0)}>
           <span className="ct-kicker ct-kicker-dark"><i aria-hidden="true" />Quick answers</span>
           <h2>Before you <em>ask.</em></h2>
           <p>The questions we hear most often. Still curious?</p>
           <Link prefetch={false} href="/faq" className="ct-textlink">See all FAQs <span aria-hidden="true">&#8594;</span></Link>
-        </motion.div>
+        </m.div>
         <div className="ct-faq-list">
           {FAQS.map((item, index) => {
             const open = openFaq === index;
             return (
-              <motion.div key={item.q} className={`ct-faq-item${open ? " open" : ""}`} {...rise(index * .06)}>
+              <m.div key={item.q} className={`ct-faq-item${open ? " open" : ""}`} {...rise(index * .06)}>
                 <button type="button" aria-expanded={open} onClick={() => setOpenFaq(open ? -1 : index)}>
                   <em>{String(index + 1).padStart(2, "0")}</em>
                   <span>{item.q}</span>
@@ -199,19 +204,23 @@ export function ContactPage() {
                 </button>
                 <AnimatePresence initial={false}>
                   {open ? (
-                    <motion.div className="ct-faq-a" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .4, ease }}>
+                    <m.div className="ct-faq-a" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .4, ease }}>
                       <p>{item.a}</p>
                       {item.href.startsWith("http")
                         ? <a href={item.href} target="_blank" rel="noreferrer">{item.link} &#8599;</a>
                         : <Link prefetch={false} href={item.href}>{item.link} &#8599;</Link>}
-                    </motion.div>
+                    </m.div>
                   ) : null}
                 </AnimatePresence>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
       </section>
     </div>
   );
+}
+
+export function ContactPage() {
+  return <MotionProvider><ContactPageInner /></MotionProvider>;
 }

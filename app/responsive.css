@@ -260,3 +260,105 @@ body:has(.cart-drawer) .floating-socials{opacity:0;visibility:hidden;transition:
 .pd-wa:disabled{opacity:.45;cursor:not-allowed;background:#fff!important;color:#16302a!important;border-color:#16302a33!important}
 .pd-wa:disabled svg{fill:#8a8f86!important}
 .col-card-media:has(.col-badge-sold) img{filter:grayscale(.55) opacity(.8)}
+
+/* Header icons never shrink; tablets (761–1000px) use the hamburger menu like phones */
+.topbar-actions>*{flex-shrink:0}
+.cart-icon-btn,.site-header .nav-burger,.nav-search-bar{flex-shrink:0;aspect-ratio:1}
+.nav-search.open .nav-search-bar{aspect-ratio:auto}
+@media(min-width:761px) and (max-width:1000px){
+  .site-header{display:flex!important;flex-wrap:wrap;align-items:center}
+  .site-header .main-nav{display:none;order:4;width:100%;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 0 16px;border-top:1px solid #e6dcc8}
+  .site-header .main-nav.open{display:flex}
+  .site-header .main-nav .nav-link{padding:8px 0;font-size:14px!important}
+  .site-header .topbar-actions{margin-left:auto;width:auto}
+}
+
+/* Contact hero on phones: photo fully visible, chat tucked below it */
+@media(max-width:560px){
+  .ct-hero-visual{display:flex;flex-direction:column;align-items:center;width:100%!important;padding:0!important}
+  .ct-arch{width:min(62%,230px)!important;margin:0 auto!important;aspect-ratio:3/3.8}
+  .ct-chat{position:relative!important;left:auto!important;bottom:auto!important;width:min(100%,300px)!important;margin:-34px auto 0;animation:none}
+  .ct-chat-body{height:132px!important;padding:10px!important}
+  .ct-bubble{font-size:12px!important;padding:7px 10px!important}
+  .ct-chat-head{padding:8px 12px!important}
+  .ct-ring{width:180px;height:180px;right:-30px;top:-20px}
+}
+
+/* Contact page on phones: compact promise tags, tighter form card, even topic grid */
+@media(max-width:560px){
+  .ct-hero-actions{gap:10px!important}
+  .ct-hero-actions .ct-btn{min-height:46px;font-size:13px}
+  .ct-promise{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important;margin-top:18px!important}
+  .ct-promise li{flex-direction:column;justify-content:center;gap:3px!important;padding:9px 4px!important;border-radius:14px!important;text-align:center;font-size:10.5px!important;line-height:1.25}
+  .ct-promise b{font-size:13px}
+  .ct-main{margin-top:28px!important}
+  .ct-form{padding:20px 16px!important;border-radius:18px!important}
+  .ct-form h2{font-size:28px!important;margin:8px 0 16px!important}
+  .ct-topics{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}
+  .ct-topics legend{grid-column:1/-1}
+  .ct-topics label{display:flex;align-items:center;justify-content:center;min-height:42px;padding:8px 6px!important;text-align:center;font-size:12.5px!important}
+  .ct-field input,.ct-field textarea{font-size:16px}
+  .ct-send{display:grid!important;grid-template-columns:1fr;gap:8px}
+  .ct-send .ct-btn{width:100%}
+}
+@media(max-width:560px){.lux-stage{width:min(70%,270px)!important;max-width:270px!important}}
+
+/* Large desktops / zoomed-out browsers: content uses more width and the header lines up with it */
+@media(min-width:1450px){
+  .premium-container{width:min(1560px,calc(100% - 80px))!important}
+  .site-header{padding-inline:max(40px,calc((100% - 1560px) / 2))!important}
+  .premium-announcement{padding-inline:max(40px,calc((100% - 1560px) / 2))}
+  .lux-hero{max-height:980px}
+}
+@media(min-width:2200px){
+  .premium-container{width:min(1760px,calc(100% - 120px))!important}
+  .site-header{padding-inline:max(60px,calc((100% - 1760px) / 2))!important}
+}
+
+/* ===== Full-width banner sections (no floating "card" look) ===== */
+/* Each banner breaks out of the page column to the screen edges; padding keeps its content aligned with the column. */
+.st,.lb,.ct,.co{overflow-x:visible!important}
+.lux-hero,.colh,.st-hero,.st-process,.st-cta,.lb-cover,.lb-end,.ct-hero,.co-head,.co-empty{
+  margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;
+  border-radius:0!important;border-left:0!important;border-right:0!important;box-shadow:none!important
+}
+.colh,.st-process,.st-cta,.lb-end,.ct-hero,.co-head,.co-empty{padding-left:calc(50vw - 50% + clamp(18px,4vw,56px))!important;padding-right:calc(50vw - 50% + clamp(18px,4vw,56px))!important}
+.lux-hero{padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
+.st-hero{padding-left:calc(50vw - 50% + clamp(18px,4vw,56px))!important;padding-right:calc(50vw - 50%)!important}
+.lb-cover{padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%)}
+/* Banners that open a page sit directly under the header */
+.lux-hero,.colh,.st-hero,.lb-cover,.ct-hero,.co-head,.co-empty{margin-top:0!important}
+.co,.pd{margin-top:0}
+@media(max-width:860px){.st-hero{padding-right:calc(50vw - 50%)!important;padding-left:calc(50vw - 50%)!important}}
+.lux-hero .lux-marquee{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+
+/* Lightweight scroll reveal (replaces Framer Motion whileInView) */
+[data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+[data-reveal].is-in{opacity:1;transform:none}
+.cat-rail>[data-reveal]:nth-child(2),.mood-rail>[data-reveal]:nth-child(2),.shop-edit-grid>[data-reveal]:nth-child(5n+2),.journal>[data-reveal]:nth-child(2),.journal-trending-list>[data-reveal]:nth-child(2){transition-delay:.08s}
+.cat-rail>[data-reveal]:nth-child(3),.mood-rail>[data-reveal]:nth-child(3),.shop-edit-grid>[data-reveal]:nth-child(5n+3),.journal>[data-reveal]:nth-child(3),.journal-trending-list>[data-reveal]:nth-child(3){transition-delay:.16s}
+.cat-rail>[data-reveal]:nth-child(4),.mood-rail>[data-reveal]:nth-child(4),.shop-edit-grid>[data-reveal]:nth-child(5n+4),.journal>[data-reveal]:nth-child(4){transition-delay:.24s}
+.cat-rail>[data-reveal]:nth-child(5),.shop-edit-grid>[data-reveal]:nth-child(5n){transition-delay:.32s}
+.cat-head [data-reveal]+[data-reveal],.mood-head [data-reveal]+[data-reveal]{transition-delay:.1s}
+.reveal-off [data-reveal]{opacity:1;transform:none;transition:none}
+@media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+/* Shop filter pill: CSS instead of a shared-layout animation */
+.shop-edit-pill{animation:se-pill .35s cubic-bezier(.22,1,.36,1)}
+@keyframes se-pill{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+
+/* Size guide */
+.size-guide{display:grid;gap:28px;padding-bottom:20px}
+.size-table-wrap{overflow-x:auto;border:1px solid #e6dcc8;border-radius:18px;background:#fffdf8}
+.size-table{width:100%;min-width:560px;border-collapse:collapse;font-size:14px;color:#16302a}
+.size-table th{padding:14px 16px;background:#16302a;color:#f7f3ea;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:left}
+.size-table td{padding:12px 16px;border-top:1px solid #e6dcc8;font-variant-numeric:tabular-nums}
+.size-table td b{display:inline-grid;place-items:center;min-width:36px;height:30px;padding:0 6px;border-radius:15px;background:#16302a0d;font:400 16px Georgia,serif}
+.size-table td small{margin-left:4px;color:#8a8f86;font-size:12px}
+.size-table tbody tr:hover{background:#16302a08}
+.size-tips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.size-tips>div{padding:18px;border:1px solid #e6dcc8;border-radius:16px;background:#fffdf8}
+.size-tips h3{margin:0 0 6px;font:400 19px Georgia,serif;color:#16302a}
+.size-tips p{margin:0;font-size:14px;line-height:1.65;color:#5f675f}
+.size-tips a{color:#b58a3c;font-weight:700}
+@media(max-width:900px){.size-tips{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.size-tips{grid-template-columns:1fr}}

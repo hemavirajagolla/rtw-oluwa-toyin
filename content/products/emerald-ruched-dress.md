@@ -4,10 +4,10 @@ slug: Emerald_Ruched_Dress
 price: 18
 category: Sets
 sizes:
-  - S
-  - XL
-  - XXL
-  - M
+  - "10"
+  - "16"
+  - "18"
+  - "12"
 colors:
   - Emerald
 images:

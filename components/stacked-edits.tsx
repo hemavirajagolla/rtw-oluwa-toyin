@@ -4,7 +4,7 @@ import { ResponsiveImage } from "@/components/responsive-image";
 
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { type CSSProperties, useState } from "react";
 
 const edits = [
@@ -14,7 +14,6 @@ const edits = [
   { eyebrow: "After dark", title: "Made for the night.", text: "Evening pieces with shimmer, drama and quiet poise.", href: "/collections/evening", action: "Shop evening", image: "/images/toyin/toyinimg-10.webp", tone: "#3f4632" },
 ];
 
-const ease = [0.22, 1, 0.36, 1] as const;
 
 export function StackedEdits() {
   const [active, setActive] = useState(0);
@@ -24,35 +23,35 @@ export function StackedEdits() {
   return (
     <section className={`mood${reduced ? " is-static" : ""}`} aria-labelledby="mood-title">
       <div className="mood-head">
-        <motion.div initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .6 }} transition={{ duration: .8, ease }}>
+        <div data-reveal>
           <span className="mood-kicker"><i aria-hidden="true" />Curated edits</span>
           <h2 id="mood-title">A mood for <em>every moment.</em></h2>
-        </motion.div>
-        <motion.div className="mood-controls" initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .6 }} transition={{ duration: .8, delay: .1, ease }}>
+        </div>
+        <div className="mood-controls" data-reveal>
           <p>Four expressions of the season. Choose the one that feels like you.</p>
           <div>
             <span className="mood-count"><b>{String(active + 1).padStart(2, "0")}</b> / {String(edits.length).padStart(2, "0")}</span>
             <button type="button" onClick={() => go(active - 1)} aria-label="Previous edit">&#8592;</button>
             <button type="button" onClick={() => go(active + 1)} aria-label="Next edit">&#8594;</button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="mood-rail">
         {edits.map((edit, index) => {
           const isActive = active === index;
           return (
-            <motion.article
+            <article
               key={edit.title}
               className={`mood-panel${isActive ? " active" : ""}`}
               style={{ "--tone": edit.tone } as CSSProperties}
-              initial={reduced ? false : { opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: .2 }}
-              transition={{ duration: .9, delay: index * .1, ease }}
+             
+              data-reveal
+             
+             
             >
               <ResponsiveImage className="mood-cover" src={edit.image} alt="" loading="lazy" decoding="async" />
-              <ResponsiveImage className="mood-blur" src={edit.image} alt="" loading="lazy" decoding="async" aria-hidden="true" />
+              <ResponsiveImage className="mood-blur" src={edit.image} sizes="160px" alt="" loading="lazy" decoding="async" aria-hidden="true" />
               <ResponsiveImage className="mood-figure" src={edit.image} alt={edit.title} loading="lazy" decoding="async" />
               <span className="mood-tint" aria-hidden="true" />
 
@@ -75,7 +74,7 @@ export function StackedEdits() {
               <span className="mood-progress" aria-hidden="true">
                 {isActive && <span />}
               </span>
-            </motion.article>
+            </article>
           );
         })}
       </div>

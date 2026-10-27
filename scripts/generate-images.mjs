@@ -26,13 +26,13 @@ async function walk(dir) {
     const meta = await sharp(input).metadata();
     const width = meta.autoOrient?.width ?? meta.width;
     const height = meta.autoOrient?.height ?? meta.height;
-    const id = createHash('sha256').update(input).update('responsive-v1-q92').digest('hex').slice(0, 16);
+    const id = createHash('sha256').update(input).update('responsive-v2-q78').digest('hex').slice(0, 16);
     const widths = [...new Set([96, 160, 240, 360, 480, 640, 800, 1080, 1440, 1920, 2160, width].filter(w => w <= width))].sort((a, b) => a - b);
     const variants = [];
     for (const w of widths) {
       const name = `${id}-${w}.webp`;
       try { await access(path.join(output, name)); }
-      catch { await sharp(input).rotate().resize({ width: w, withoutEnlargement: true }).webp({ quality: 92, effort: 6 }).toFile(path.join(output, name)); }
+      catch { await sharp(input).rotate().resize({ width: w, withoutEnlargement: true }).webp({ quality: 78, effort: 6, smartSubsample: true }).toFile(path.join(output, name)); }
       variants.push({ width: w, src: `/responsive/${name}` });
     }
     const portraitVariants = [];
@@ -42,7 +42,7 @@ async function walk(dir) {
       for (const w of widths.filter(w => w <= Math.floor(height * 0.8))) {
         const name = `${id}-portrait-${w}.webp`;
         try { await access(path.join(output, name)); }
-        catch { await sharp(input).rotate().resize({ width: w, height: Math.round(w / 0.8), fit: 'cover', position: 'centre' }).webp({ quality: 92, effort: 6 }).toFile(path.join(output, name)); }
+        catch { await sharp(input).rotate().resize({ width: w, height: Math.round(w / 0.8), fit: 'cover', position: 'centre' }).webp({ quality: 78, effort: 6, smartSubsample: true }).toFile(path.join(output, name)); }
         portraitVariants.push({ width: w, src: `/responsive/${name}` });
       }
     }

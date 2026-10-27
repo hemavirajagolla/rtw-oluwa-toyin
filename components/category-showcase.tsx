@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { responsiveImage } from "@/lib/responsive-image";
-import { motion, useReducedMotion } from "framer-motion";
 import type { PointerEvent } from "react";
 
 const categories = [
@@ -13,7 +13,6 @@ const categories = [
   { name: "Evening", note: "After-dark glamour", image: "/images/toyin/toyinimg-3.webp" },
 ];
 
-const ease = [0.22, 1, 0.36, 1] as const;
 
 export function CategoryShowcase() {
   const reduced = useReducedMotion();
@@ -36,29 +35,29 @@ export function CategoryShowcase() {
   return (
     <section className="cat-showcase" aria-labelledby="cat-showcase-title">
       <div className="cat-head">
-        <motion.div initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .6 }} transition={{ duration: .8, ease }}>
+        <div data-reveal>
           <span className="cat-kicker"><i aria-hidden="true" />Shop your way</span>
           <h2 id="cat-showcase-title">Explore by <em>category</em></h2>
-        </motion.div>
-        <motion.p initial={reduced ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .6 }} transition={{ duration: .8, delay: .1, ease }}>
+        </div>
+        <p data-reveal>
           Five curated edits, each crafted to celebrate a different side of your story.
           <Link prefetch={false} href="/collections">View all collections <span aria-hidden="true">&#8594;</span></Link>
-        </motion.p>
+        </p>
       </div>
 
       <div className="cat-rail">
         {categories.map((category, index) => (
-          <motion.div
+          <div
             key={category.name}
             className="cat-item"
-            initial={reduced ? false : { opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: .25 }}
-            transition={{ duration: .9, delay: index * .08, ease }}
+           
+            data-reveal
+           
+           
           >
             <Link prefetch={false} href={`/collections/${category.name.toLowerCase()}`} className="cat-card" onPointerMove={tilt} onPointerLeave={untilt}>
               <span className="cat-frame">
-                <motion.img {...responsiveImage(category.image)} alt="" loading="lazy" initial={reduced ? false : { scale: 1.3 }} whileInView={{ scale: 1 }} viewport={{ once: true, amount: .25 }} transition={{ duration: 1.6, delay: index * .08 + .1, ease }} />
+                <img {...responsiveImage(category.image, "(max-width: 640px) 31vw, (max-width: 1000px) 32vw, 19vw")} alt="" loading="lazy" data-reveal />
                 <span className="cat-shade" aria-hidden="true" />
                 <span className="cat-glare" aria-hidden="true" />
                 <span className="cat-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
@@ -69,7 +68,7 @@ export function CategoryShowcase() {
                 </span>
               </span>
             </Link>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
