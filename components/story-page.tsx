@@ -162,7 +162,7 @@ function StoryPageInner() {
         <p>Discover the collection, or talk to us for personal styling help.</p>
         <div className="st-hero-actions">
           <Link prefetch={false} href="/collections" className="st-btn st-btn-light">Shop the collection <b aria-hidden="true">&#8594;</b></Link>
-          <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer" className="st-btn st-btn-ghost">Chat on WhatsApp</a>
+          <a href="https://wa.me/2349047022935" target="_blank" rel="noreferrer" className="st-btn st-btn-ghost">Chat on WhatsApp</a>
         </div>
       </m.section>
     </div>

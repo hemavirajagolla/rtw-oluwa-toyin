@@ -9,12 +9,12 @@ import { formatNaira } from "@/lib/currency";
 type Pick = { slug: string; name: string; category: string; price: number; image: string; soldOut?: boolean };
 
 const links = [
-  { href: "/collections/evening", kicker: "After dark", title: "Evening", text: "Shimmer, drama and quiet poise.", image: "/images/toyin/toyinimg-10.webp" },
-  { href: "/about", kicker: "Behind the label", title: "Our story", text: "The women and craft behind RTW.", image: "/images/toyin/toyinimg-7.webp" },
+  { href: "/collections", kicker: "The full edit", title: "Collections", text: "Every piece, all in one place.", image: "" },
+  { href: "/about", kicker: "Behind the label", title: "Our story", text: "The women and craft behind RTW.", image: "/images/toyin/toyinimg-7.webp", cls: "journal-link-story" },
 ];
 
 
-export function JournalBento({ picks }: { picks: Pick[] }) {
+export function JournalBento({ picks, collectionImage }: { picks: Pick[]; collectionImage?: string }) {
 
   return (
     <section className="journal" aria-labelledby="journal-title">
@@ -37,8 +37,8 @@ export function JournalBento({ picks }: { picks: Pick[] }) {
 
       {links.map((link, index) => (
         <div key={link.href} className="journal-link-wrap" data-reveal>
-          <Link prefetch={false} href={link.href} className="journal-link">
-            <ResponsiveImage src={link.image} alt="" loading="lazy" decoding="async" />
+          <Link prefetch={false} href={link.href} className={`journal-link${"cls" in link ? ` ${link.cls}` : ""}`}>
+            <ResponsiveImage src={link.image || collectionImage || "/images/toyin/toyinimg-10.webp"} alt="" loading="lazy" decoding="async" />
             <span className="journal-link-shade" aria-hidden="true" />
             <span className="journal-link-copy">
               <small>{link.kicker}</small>

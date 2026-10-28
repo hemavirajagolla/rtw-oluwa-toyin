@@ -17,6 +17,7 @@ export type Product = {
   newArrival: boolean;
   soldOut: boolean;
   displayOrder: number;
+  heroFocus: string;
 };
 
 const productsDirectory = path.join(process.cwd(), "content", "products");
@@ -51,6 +52,7 @@ function parseProduct(fileName: string): Product {
     newArrival: Boolean(data.newArrival),
     soldOut: Boolean(data.soldOut),
     displayOrder: Number(data.displayOrder || 0),
+    heroFocus: typeof data.heroFocus === "string" ? data.heroFocus : "",
   };
 }
 
@@ -85,10 +87,15 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getCategoryList(): string[] {
   return [
+    "Bubu",
     "Dresses",
     "Sets",
     "Tops",
     "Skirts",
     "Evening",
+    "Jumpsuits",
+    "Co-ords",
+    "Gowns",
+    "Trousers",
   ];
 }

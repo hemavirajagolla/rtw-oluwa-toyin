@@ -70,7 +70,7 @@
 .ct-send{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 .ct-note{margin:14px 0 0;font-size:12px;color:#8a8f86}
 
-.ct-channels{display:flex;flex-direction:column;gap:12px;align-self:start}
+.ct-channels{display:flex;flex-direction:column;gap:12px;align-self:stretch}
 .ct-channels>div{display:flex}
 .ct-channel{position:relative;display:flex;flex:1 1 auto;width:100%;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--ct-line);border-radius:22px;background:var(--ct-cream);color:var(--ct-ink);overflow:hidden;isolation:isolate;transition:transform .45s cubic-bezier(.22,1,.36,1),color .45s,border-color .45s}
 .ct-channel:before{content:'';position:absolute;inset:0;z-index:-1;background:var(--ct-forest);transform:translateY(101%);transition:transform .55s cubic-bezier(.22,1,.36,1)}

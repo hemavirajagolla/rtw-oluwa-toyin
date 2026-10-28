@@ -7,13 +7,8 @@ import Link from "next/link";
 import { responsiveImage } from "@/lib/responsive-image";
 import { type CSSProperties, useRef, useState } from "react";
 import { formatNaira } from "@/lib/currency";
+import type { HeroSlide } from "@/lib/hero-slides";
 
-const slides = [
-  { tab: "Occasion", kicker: "Occasion Wear", title: "Arrive with", accent: "confidence.", copy: "Statement details and fluid shapes for every unforgettable entrance you are about to make.", image: "/images/toyin/toyinimg-5.webp", href: "/lookbook", glow: "#d9a24a", product: { name: "Kente Pleat Skirt", price: 140, slug: "kente-pleat-skirt", image: "/images/toyin/toyinimg-6.webp", colors: [["Saffron", "#e3a13a"], ["Terracotta", "#c0582f"]] }, spot: { x: 62, y: 58 } },
-  { tab: "Evening", kicker: "The Evening Edit", title: "Made for", accent: "the spotlight.", copy: "Sequins, sculpted silhouettes and fearless colour. Eveningwear designed to be remembered long after the night ends.", image: "/images/toyin/toyinimg-10.webp", href: "/collections/evening", glow: "#e0842c", product: { name: "Noir Evening Gown", price: 260, slug: "noir-evening-gown", image: "/images/toyin/toyinimg-11.webp", colors: [["Onyx", "#1d1d1f"], ["Deep Green", "#1f4d3a"]] }, spot: { x: 44, y: 66 } },
-  { tab: "Resort", kicker: "Resort Collection", title: "Sun-kissed", accent: "and effortless.", copy: "Airy layers and soft lace that move with the breeze, from the shoreline to sunset dinners.", image: "/images/toyin/toyinimg-14.webp", href: "/collections/tops", glow: "#6fc2ba", product: { name: "Ivory Strap Top", price: 115, slug: "ivory-strap-top", image: "/images/toyin/toyinimg-8.webp", crop: "center 38%", colors: [["Ivory", "#f1e9da"]] }, spot: { x: 56, y: 50 } },
-  { tab: "New in", kicker: "New Season", title: "Wear your", accent: "own story.", copy: "Heritage prints reimagined with modern tailoring. Considered pieces that celebrate who you are.", image: "/images/toyin/toyinimg-13.webp", href: "/collections/dresses", glow: "#d8434f", product: { name: "Emerald Ruched Dress", price: 180, slug: "emerald-ruched-dress", image: "/images/toyin/toyinimg-15.webp", colors: [["Emerald", "#0f6b4f"]] }, spot: { x: 50, y: 62 } },
-];
 
 const marquee = ["Luxury African ready-to-wear", "Delivery across Nigeria", "Styling on WhatsApp", "Made to be remembered", "New season now live"];
 
@@ -33,7 +28,7 @@ function Words({ text, delay, className }: { text: string; delay: number; classN
   );
 }
 
-export function HeroShowcase() {
+export function HeroShowcase({ slides, pieceCount }: { slides: HeroSlide[]; pieceCount: number }) {
   const [active, setActive] = useState(0);
   const [changed, setChanged] = useState(false);
   const [previous, setPrevious] = useState<number | null>(null);
@@ -47,6 +42,8 @@ export function HeroShowcase() {
     setPrevious(active);
     setActive(next);
   };
+
+  if (!slide) return null;
 
   return (
     <section
@@ -88,13 +85,13 @@ export function HeroShowcase() {
           </div>
 
           <div className="lux-proof">
-            <span className="lux-proof-faces" aria-hidden="true">{slides.slice(0, 3).map((item) => <ResponsiveImage key={item.image} src={item.image} alt="" sizes="36px" />)}</span>
+            <span className="lux-proof-faces" aria-hidden="true">{slides.slice(0, 3).map((item) => <ResponsiveImage key={item.product.slug} src={item.image} alt="" sizes="36px" />)}</span>
             <span><strong><CountUp to={10} suffix="K+" /></strong> clients styled worldwide</span>
           </div>
 
           <dl className="lux-stats">
             <div><dt>Happy clients</dt><dd><CountUp to={10} suffix="K+" /></dd></div>
-            <div><dt>Curated looks</dt><dd><CountUp to={15} /></dd></div>
+            <div><dt>{pieceCount === 1 ? "Curated piece" : "Curated pieces"}</dt><dd><CountUp to={pieceCount} /></dd></div>
             <div><dt>Ships to</dt><dd><CountUp to={30} suffix="+" /><small>countries</small></dd></div>
           </dl>
         </div>
@@ -116,11 +113,12 @@ export function HeroShowcase() {
           <div className="lux-stage">
             <span key={active} className="lux-bignum lux-in-rise" aria-hidden="true">{String(active + 1).padStart(2, "0")}</span>
             <div className="lux-arch">
-              {previous !== null ? <img key={`prev-${slides[previous].image}`} {...responsiveImage(slides[previous].image, "(max-width: 560px) 270px, (max-width: 900px) 440px, 36vw")} alt="" aria-hidden="true" className="lux-arch-img lux-arch-prev" /> : null}
+              {previous !== null ? <img key={`prev-${slides[previous].image}`} {...responsiveImage(slides[previous].image, "(max-width: 560px) 270px, (max-width: 900px) 440px, 36vw")} alt="" aria-hidden="true" className="lux-arch-img lux-arch-prev" style={slides[previous].focus ? { objectPosition: slides[previous].focus } : undefined} /> : null}
               <img
                   key={slide.image}
                   {...responsiveImage(slide.image, "(max-width: 560px) 270px, (max-width: 900px) 440px, 36vw")}
                   alt={`${slide.kicker}: ${slide.title} ${slide.accent}`}
+                  style={slide.focus ? { objectPosition: slide.focus } : undefined}
                   loading={active === 0 ? "eager" : "lazy"}
                   decoding="async"
                   fetchPriority={active === 0 ? "high" : "auto"}
@@ -130,7 +128,7 @@ export function HeroShowcase() {
                 <div key={slide.product.slug} className="lux-hotspot lux-in-pop" style={{ left: `${slide.spot.x}%`, top: `${slide.spot.y}%` }}>
                   <Link prefetch={false} href={`/products/${slide.product.slug}`} aria-label={`Shop ${slide.product.name}`}>
                     <i aria-hidden="true" />
-                    <span>{slide.product.name}<b>{formatNaira(slide.product.price)}</b></span>
+                    <span>{slide.product.name}<b>{slide.product.soldOut ? "Sold out" : formatNaira(slide.product.price)}</b></span>
                   </Link>
                 </div>
             </div>
@@ -146,8 +144,8 @@ export function HeroShowcase() {
                 <div key={slide.product.slug} className="lux-look-tilt lux-in-card">
                   <Link prefetch={false} href={`/products/${slide.product.slug}`} className="lux-look">
                     <span className="lux-look-img">
-                      <ResponsiveImage src={slide.product.image} sizes="120px" alt="" loading="lazy" decoding="async" style={"crop" in slide.product ? { objectPosition: slide.product.crop } : undefined} />
-                      <em>Shop the look</em>
+                      <ResponsiveImage src={slide.product.image} sizes="120px" alt="" loading="lazy" decoding="async" />
+                      <em>{slide.product.soldOut ? "Sold out" : "Shop the look"}</em>
                     </span>
                     <span className="lux-look-info">
                       <strong>{slide.product.name}</strong>
@@ -155,7 +153,7 @@ export function HeroShowcase() {
                         <span className="lux-swatches">
                           {slide.product.colors.map(([name, hex]) => <i key={name} title={name} style={{ background: hex }} />)}
                         </span>
-                        <b>{formatNaira(slide.product.price)}</b>
+                        <b>{slide.product.soldOut ? "Sold out" : formatNaira(slide.product.price)}</b>
                       </span>
                     </span>
                   </Link>
@@ -165,7 +163,7 @@ export function HeroShowcase() {
 
           <div className="lux-thumbs" role="tablist" aria-label="Choose a collection">
             {slides.map((item, index) => (
-              <button type="button" role="tab" key={item.image} aria-selected={active === index} aria-label={`Show ${item.kicker}`}className={active === index ? "active" : ""} onClick={() => go(index)}>
+              <button type="button" role="tab" key={item.product.slug} aria-selected={active === index} aria-label={`Show ${item.kicker}`}className={active === index ? "active" : ""} onClick={() => go(index)}>
                 <ResponsiveImage src={item.image} alt="" sizes="60px" loading="lazy" decoding="async" />
               </button>
             ))}
@@ -175,7 +173,7 @@ export function HeroShowcase() {
 
       <div className="lux-tabs">
         {slides.map((item, index) => (
-          <button type="button" key={item.tab} className={active === index ? "active" : ""} onClick={() => go(index)} aria-label={`Show ${item.kicker}`}>
+          <button type="button" key={item.product.slug} className={active === index ? "active" : ""} onClick={() => go(index)} aria-label={`Show ${item.kicker}`}>
             <span className="lux-tab-label"><em>{String(index + 1).padStart(2, "0")}</em>{item.tab}</span>
             <span className="lux-tab-track">
               {active === index && <span className="lux-tab-fill" />}

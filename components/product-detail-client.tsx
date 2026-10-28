@@ -52,7 +52,7 @@ function ProductDetailClientInner({ product, related = [] }: { product: Product;
       "",
       "Please confirm availability and send me the payment details. Thank you!",
     ].join("\n"));
-    window.open(`https://wa.me/916305615898?text=${message}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/2349047022935?text=${message}`, "_blank", "noopener,noreferrer");
   };
 
   function onZoomMove(event: PointerEvent<HTMLDivElement>) {

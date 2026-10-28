@@ -19,7 +19,11 @@ export type CartItem = {
   category: string;
 };
 
+type CatalogEntry = { slug: string; name: string; price: number; image: string; category: string; soldOut: boolean };
+
 type CartContextValue = {
+  unavailable: string[];
+  dismissUnavailable: () => void;
   items: CartItem[];
   addToCart: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void;
   updateQuantity: (slug: string, size: string, change: number) => void;
@@ -31,8 +35,9 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({ children, catalog = [] }: { children: ReactNode; catalog?: CatalogEntry[] }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [unavailable, setUnavailable] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -50,8 +55,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Schedule hydration after the effect body so React does not perform a
     // cascading synchronous render while reading the browser-only cart store.
+    // A bag saved earlier may hold pieces that are now sold out or removed: drop them and refresh names, prices and photos.
+    const gone: string[] = [];
+    const current = storedItems.flatMap((item) => {
+      const live = catalog.find((entry) => entry.slug === item.slug);
+      if (!live || live.soldOut) {
+        gone.push(item.name);
+        return [];
+      }
+      return [{ ...item, name: live.name, price: live.price, image: live.image, category: live.category }];
+    });
+
     queueMicrotask(() => {
-      setItems(storedItems);
+      setItems(current);
+      setUnavailable([...new Set(gone)]);
       setHydrated(true);
     });
   }, []);
@@ -113,7 +130,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addToCart, updateQuantity, removeItem, clearCart, cartCount, subtotal }}
+      value={{ unavailable, dismissUnavailable: () => setUnavailable([]), items, addToCart, updateQuantity, removeItem, clearCart, cartCount, subtotal }}
     >
       {children}
     </CartContext.Provider>

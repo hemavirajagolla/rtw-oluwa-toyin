@@ -8,10 +8,10 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { type CSSProperties, useState } from "react";
 
 const edits = [
-  { eyebrow: "The dress edit", title: "Own the moment.", text: "Sculpted silhouettes made for memorable entrances.", href: "/collections/dresses", action: "Shop dresses", image: "/images/toyin/toyinimg-15.webp", tone: "#681c36" },
-  { eyebrow: "Effortless pairing", title: "Better together.", text: "Polished sets designed to make dressing feel effortless.", href: "/collections/sets", action: "Shop sets", image: "/images/toyin/toyinimg-12.webp", tone: "#0d5a47" },
-  { eyebrow: "Everyday expression", title: "Style your story.", text: "Confident separates for a wardrobe that moves with you.", href: "/collections/tops", action: "Explore tops", image: "/images/toyin/toyinimg-9.webp", tone: "#145451" },
-  { eyebrow: "After dark", title: "Made for the night.", text: "Evening pieces with shimmer, drama and quiet poise.", href: "/collections/evening", action: "Shop evening", image: "/images/toyin/toyinimg-10.webp", tone: "#3f4632" },
+  { eyebrow: "The bubu edit", title: "Flowing and regal.", text: "Floor-length bubus with rich fabrics and beautiful beadwork.", href: "/collections/bubu", action: "Shop bubu", image: "/images/products/zainab-bubu-1.jpg", tone: "#2f2f63" },
+  { eyebrow: "Effortless pairing", title: "Better together.", text: "Matching tops and wide-leg trousers designed to make dressing feel effortless.", href: "/collections/co-ords", action: "Shop co-ords", image: "/images/products/simi-two-piece-set-1.jpg", tone: "#0d5a47" },
+  { eyebrow: "Grand occasions", title: "Own the moment.", text: "Statement gowns for weddings, owambe and every celebration worth dressing up for.", href: "/collections/gowns", action: "Shop gowns", image: "/images/toyin/toyinimg-3.webp", tone: "#681c36" },
+  { eyebrow: "One effortless piece", title: "Style your story.", text: "Tailored and fluid jumpsuits that take you from the day to the dinner.", href: "/collections/jumpsuits", action: "Shop jumpsuits", image: "/images/toyin/toyinimg-9.webp", tone: "#145451" },
 ];
 
 
@@ -72,7 +72,7 @@ export function StackedEdits() {
               </div>
 
               <span className="mood-progress" aria-hidden="true">
-                {isActive && <span />}
+                {isActive && <span onAnimationEnd={() => go(index + 1)} />}
               </span>
             </article>
           );

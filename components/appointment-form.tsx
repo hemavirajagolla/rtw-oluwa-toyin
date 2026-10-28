@@ -2,8 +2,8 @@
 
 import { type FormEvent, useState } from "react";
 
-const WHATSAPP = "916305615898";
-const EMAIL = "hello@oluwatowin.com";
+const WHATSAPP = "2349047022935";
+const EMAIL = "rtwbyelegantmoi@gmail.com";
 
 // Edit these lists to change the dropdown options.
 const LOCATIONS = ["Lagos Studio", "Abuja Studio", "Virtual Consultation", "Home Visit"];

@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <CartProvider>
+        <CartProvider catalog={searchIndex.map(({ slug, name, price, image, category, soldOut }) => ({ slug, name, price, image, category, soldOut }))}>
           <SiteShell searchIndex={searchIndex}>{children}</SiteShell>
         </CartProvider>
       </body>

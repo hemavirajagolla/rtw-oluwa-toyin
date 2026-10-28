@@ -29,7 +29,7 @@ collections:
       - { label: "Product name", name: "name", widget: "string" }
       - { label: "Web address name (small letters and dashes, e.g. noir-evening-gown)", name: "slug", widget: "string" }
       - { label: "Price (₦)", name: "price", widget: "number", value_type: "int", min: 0 }
-      - { label: "Category", name: "category", widget: "select", options: ["Dresses", "Sets", "Tops", "Skirts", "Evening"] }
+      - { label: "Category", name: "category", widget: "select", options: ["Bubu", "Dresses", "Sets", "Tops", "Skirts", "Evening", "Jumpsuits", "Co-ords", "Gowns", "Trousers"] }
       - { label: "Sizes available (UK / Nigerian sizes)", name: "sizes", widget: "select", multiple: true, options: ["6", "8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "One Size"] }
       - { label: "Colours", name: "colors", widget: "list", hint: "Add one colour per line, e.g. Emerald" }
       - label: "Photos"
@@ -37,6 +37,7 @@ collections:
         widget: "list"
         hint: "The first photo is the main one."
         field: { label: "Photo", name: "image", widget: "image" }
+      - { label: "Main-section photo focus (only if the first photo is cropped badly on the home page)", name: "heroFocus", widget: "select", options: ["Top", "Center", "Bottom"], required: false, hint: "Top keeps the face and head, Bottom keeps the hem. Leave empty for the default." }
       - { label: "Short description", name: "shortDescription", widget: "text" }
       - { label: "Full description", name: "fullDescription", widget: "text", required: false }
       - { label: "Fabric & care", name: "fabricCare", widget: "text", required: false }

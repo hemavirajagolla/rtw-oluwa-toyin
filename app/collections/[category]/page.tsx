@@ -5,32 +5,34 @@ import { CollectionsHero } from "@/components/collections-hero";
 import { getAllProducts, getCategoryList, getProductsByCategory } from "@/lib/products";
 
 const COPY: Record<string, { accent: string; text: string }> = {
+  Bubu: { accent: "flowing and regal.", text: "Floor-length bubus and kaftans with generous sleeves, rich fabrics and beautiful beadwork." },
   Dresses: { accent: "that move with you.", text: "Sculpted, fluid silhouettes made for memorable entrances, from day to evening." },
   Sets: { accent: "made better together.", text: "Polished two-piece edits that make dressing feel effortless." },
   Tops: { accent: "for everyday polish.", text: "Considered tops with clean lines and a softly tailored shape." },
   Skirts: { accent: "in heritage prints.", text: "Dramatic pleats and modern textile geometry, rooted in African craft." },
   Evening: { accent: "after dark.", text: "Shimmer, drama and quiet poise for the moments that matter most." },
+  Jumpsuits: { accent: "in one effortless piece.", text: "Tailored and fluid jumpsuits that take you from the day to the dinner." },
+  "Co-ords": { accent: "perfectly matched.", text: "Coordinated tops and bottoms that make getting dressed easy." },
+  Gowns: { accent: "for grand occasions.", text: "Statement gowns for weddings, owambe and every celebration worth dressing up for." },
+  Trousers: { accent: "with a clean line.", text: "Wide-leg, palazzo and tailored trousers cut for comfort and polish." },
 };
 
 export function generateStaticParams() {
-  // Only categories that still have products get a page, so deleting products in the admin never breaks the build.
-  return getCategoryList()
-    .filter((category) => getProductsByCategory(category).length > 0)
-    .map((category) => ({ category: category.toLowerCase() }));
+  // Every listed category gets a page, even before its first product is added.
+  return getCategoryList().map((category) => ({ category: category.toLowerCase() }));
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
-  const categoryName = decodeURIComponent(category)
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
+  const slug = decodeURIComponent(category).toLowerCase();
+  // Match the real category name so hyphenated ones like "Co-ords" resolve correctly.
+  const categoryName = getCategoryList().find((name) => name.toLowerCase() === slug);
 
-  const inCategory = getProductsByCategory(categoryName);
-
-  if (!inCategory.length) {
+  if (!categoryName) {
     notFound();
   }
+
+  const inCategory = getProductsByCategory(categoryName);
 
   const copy = COPY[categoryName] ?? { accent: "edit.", text: "Explore every piece in this edit." };
   const images = [...new Set(inCategory.flatMap((product) => product.images))];

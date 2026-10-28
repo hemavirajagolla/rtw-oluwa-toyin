@@ -6,11 +6,11 @@ import { responsiveImage } from "@/lib/responsive-image";
 import type { PointerEvent } from "react";
 
 const categories = [
-  { name: "Dresses", note: "Sculpted & fluid", image: "/images/toyin/toyinimg-15.webp" },
-  { name: "Sets", note: "Two-piece ease", image: "/images/toyin/toyinimg-12.webp" },
-  { name: "Tops", note: "Everyday polish", image: "/images/toyin/toyinimg-9.webp" },
-  { name: "Skirts", note: "Heritage prints", image: "/images/toyin/toyinimg-13.webp" },
-  { name: "Evening", note: "After-dark glamour", image: "/images/toyin/toyinimg-3.webp" },
+  { name: "Bubu", note: "Flowing & regal", image: "/images/products/zainab-bubu-1.jpg" },
+  { name: "Co-ords", note: "Two-piece ease", image: "/images/products/simi-two-piece-set-1.jpg" },
+  { name: "Gowns", note: "Grand occasions", image: "/images/toyin/toyinimg-3.webp" },
+  { name: "Jumpsuits", note: "One effortless piece", image: "/images/toyin/toyinimg-9.webp" },
+  { name: "Trousers", note: "A clean line", image: "/images/toyin/toyinimg-12.webp" },
 ];
 
 
@@ -40,7 +40,7 @@ export function CategoryShowcase() {
           <h2 id="cat-showcase-title">Explore by <em>category</em></h2>
         </div>
         <p data-reveal>
-          Five curated edits, each crafted to celebrate a different side of your story.
+          Curated edits, each crafted to celebrate a different side of your story.
           <Link prefetch={false} href="/collections">View all collections <span aria-hidden="true">&#8594;</span></Link>
         </p>
       </div>

@@ -23,10 +23,10 @@
 .lux-copy-swap{min-height:clamp(230px,24vw,300px)}
 .lux-hero h1{margin:26px 0 20px;font:400 clamp(46px,6.2vw,92px)/.98 Georgia,'Times New Roman',serif;letter-spacing:-.045em;color:var(--hero-ink)}
 .lux-hero h1>span{display:block}
-.lux-word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em;margin-right:.22em}
-.lux-word:last-child{margin-right:0}
+.lux-word{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .08em .3em;margin:0 .14em -.3em -.08em}
+.lux-word:last-child{margin-right:-.08em}
 .lux-word>span{display:inline-block}
-.lux-accent{font-style:italic;background:linear-gradient(100deg,var(--hero-gold) 0%,#fff3d6 40%,var(--hero-gold) 60%,#b98b45 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.lux-accent{padding:0 .1em .28em .06em;margin:0 0 -.28em -.06em;font-style:italic;background:linear-gradient(100deg,var(--hero-gold) 0%,#fff3d6 40%,var(--hero-gold) 60%,#b98b45 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
 .lux-accent .lux-word>span{padding-right:.06em}
 .lux-hero-copy p{max-width:440px;margin:0;font-size:clamp(14px,1.15vw,16px);line-height:1.75;color:var(--hero-muted)}
 

@@ -162,7 +162,7 @@ function LookbookPageInner() {
           <p>Every frame is available to shop, with personal styling help on WhatsApp.</p>
           <div className="lb-end-actions">
             <Link prefetch={false} href="/collections" className="lb-btn lb-btn-light">Shop the collection <b aria-hidden="true">&#8594;</b></Link>
-            <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer" className="lb-btn lb-btn-ghost">Ask a stylist</a>
+            <a href="https://wa.me/2349047022935" target="_blank" rel="noreferrer" className="lb-btn lb-btn-ghost">Ask a stylist</a>
           </div>
         </div>
       </m.section>

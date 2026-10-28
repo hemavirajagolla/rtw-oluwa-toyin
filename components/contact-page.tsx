@@ -9,9 +9,9 @@ import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { MotionProvider } from "@/components/motion-provider";
 import { type FormEvent, useEffect, useState } from "react";
 
-const WHATSAPP = "916305615898";
-const EMAIL = "hello@oluwatowin.com";
-const INSTAGRAM = "https://www.instagram.com/oluwatowin/";
+const WHATSAPP = "2349047022935";
+const EMAIL = "rtwbyelegantmoi@gmail.com";
+const INSTAGRAM = "https://www.instagram.com/rtwbyelegantmoistyle?srtk=OXI5ZXc3M3k3Zjdh";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const TOPICS = ["Sizing help", "Styling advice", "Order update", "Something else"];
@@ -27,7 +27,7 @@ const FAQS = [
   { q: "How do I find my size?", a: "Our size guide lists every measurement. If you are between sizes, message us and we will recommend the best fit for the piece you love.", href: "/size-guide", link: "Open the size guide" },
   { q: "How do I place an order?", a: "Add your pieces to the bag and check out. We confirm every order personally on WhatsApp before it is prepared.", href: "/collections", link: "Browse the collection" },
   { q: "Where do you deliver?", a: "We deliver anywhere in Nigeria, from Lagos Island to every state. Fees and return details are on our shipping page.", href: "/shipping-returns", link: "Shipping & returns" },
-  { q: "Can you help me style a full look?", a: "Of course. Send us the occasion and a few pieces you like, and we will suggest a complete look.", href: "https://wa.me/916305615898", link: "Chat with a stylist" },
+  { q: "Can you help me style a full look?", a: "Of course. Send us the occasion and a few pieces you like, and we will suggest a complete look.", href: "https://wa.me/2349047022935", link: "Chat with a stylist" },
 ];
 
 function Icon({ name }: { name: "wa" | "mail" | "ig" | "ruler" }) {
@@ -159,7 +159,7 @@ function ContactPageInner() {
         <div className="ct-channels">
           <m.a className="ct-channel ct-channel-wa" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer" {...rise(.08)}>
             <span className="ct-channel-icon"><Icon name="wa" /></span>
-            <span><small>WhatsApp</small><strong>+91 63056 15898</strong><em>Fastest for sizing & orders</em></span>
+            <span><small>WhatsApp</small><strong>+234 904 702 2935</strong><em>Fastest for sizing & orders</em></span>
             <i aria-hidden="true">&#8599;</i>
           </m.a>
           <m.a className="ct-channel" href={`mailto:${EMAIL}`} {...rise(.14)}>
@@ -169,16 +169,9 @@ function ContactPageInner() {
           </m.a>
           <m.a className="ct-channel ct-channel-ig" href={INSTAGRAM} target="_blank" rel="noreferrer" {...rise(.2)}>
             <span className="ct-channel-icon"><Icon name="ig" /></span>
-            <span><small>Instagram</small><strong>@oluwatowin</strong><em>New looks & behind the scenes</em></span>
+            <span><small>Instagram</small><strong>@rtwbyelegantmoistyle</strong><em>New looks & behind the scenes</em></span>
             <i aria-hidden="true">&#8599;</i>
           </m.a>
-          <m.div {...rise(.26)}>
-            <Link prefetch={false} className="ct-channel ct-channel-fit" href="/size-guide">
-              <span className="ct-channel-icon"><Icon name="ruler" /></span>
-              <span><small>Before you choose</small><strong>Find your perfect fit</strong><em>Open the size guide</em></span>
-              <i aria-hidden="true">&#8599;</i>
-            </Link>
-          </m.div>
         </div>
       </section>
 

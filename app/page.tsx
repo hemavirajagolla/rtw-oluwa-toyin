@@ -5,6 +5,7 @@ import { HeroShowcase } from "@/components/hero-showcase";
 import { JournalBento } from "@/components/journal-bento";
 import { type Look, ShopEdit } from "@/components/shop-edit";
 import { StackedEdits } from "@/components/stacked-edits";
+import { buildHeroSlides } from "@/lib/hero-slides";
 import { getAllProducts } from "@/lib/products";
 
 const services = [
@@ -23,10 +24,8 @@ function ServiceIcon({ name }: { name: string }) {
 
 export default function HomePage() {
   const products = getAllProducts();
-  const shopLooks = products
-    .flatMap((product) => product.images.map((image, imageIndex) => ({ product, image, imageIndex })))
-    .sort((x, y) => x.imageIndex - y.imageIndex)
-    .map(({ product, image }, index) => ({ product, image, look: index + 1 }));
+  // One look per product, so a product with several photos is not repeated on the home page.
+  const shopLooks = products.map((product, index) => ({ product, image: product.images[0], look: index + 1 }));
   const looks: Look[] = shopLooks.map(({ product, image, look }) => ({
     look,
     slug: product.slug,
@@ -48,7 +47,7 @@ export default function HomePage() {
       </div>
 
       <div className="premium-container">
-        <HeroShowcase />
+        <HeroShowcase slides={buildHeroSlides(products)} pieceCount={products.length} />
 
         <section className="premium-services" aria-label="Our services">
           {services.map((service) => <div key={service.title}><ServiceIcon name={service.icon} /><span><strong>{service.title}</strong><small>{service.text}</small></span></div>)}
@@ -60,7 +59,7 @@ export default function HomePage() {
 
         <ShopEdit looks={looks} />
 
-        <JournalBento picks={products.slice(0, 3).map((product) => ({ slug: product.slug, name: product.name, category: product.category, price: product.price, image: product.images[0], soldOut: product.soldOut }))} />
+        <JournalBento collectionImage={products[0]?.images[1] ?? products[0]?.images[0]} picks={products.slice(0, 3).map((product) => ({ slug: product.slug, name: product.name, category: product.category, price: product.price, image: product.images[0], soldOut: product.soldOut }))} />
       </div>
     </div>
   );

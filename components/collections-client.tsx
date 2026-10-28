@@ -215,9 +215,19 @@ export function CollectionsClient({ products, initialCategory = "All" }: Props) 
           {!visible.length ? (
             <div className="col-empty">
               <span aria-hidden="true">&#10022;</span>
-              <h3>No pieces match those filters</h3>
-              <p>Try removing a filter, or browse the full collection.</p>
-              <button type="button" onClick={clearAll}>Reset filters</button>
+              {initialCategory !== "All" && !products.some((product) => product.category === initialCategory) ? (
+                <>
+                  <h3>New {initialCategory} pieces are coming soon</h3>
+                  <p>Meanwhile, browse everything that is available now.</p>
+                  <Link prefetch={false} href="/collections">Shop all pieces</Link>
+                </>
+              ) : (
+                <>
+                  <h3>No pieces match those filters</h3>
+                  <p>Try removing a filter, or browse the full collection.</p>
+                  <button type="button" onClick={clearAll}>Reset filters</button>
+                </>
+              )}
             </div>
           ) : null}
         </div>

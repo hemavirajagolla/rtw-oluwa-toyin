@@ -27,7 +27,7 @@ export default function ThankYouPage() {
         {order.reference ? <p className="confirmation-reference">Order reference <strong>{order.reference}</strong></p> : null}
         <div className="confirmation-next"><span>01</span><p><strong>Check WhatsApp</strong>Send the prepared order message so our team can confirm availability.</p><span>02</span><p><strong>Receive payment details</strong>We’ll reply with your delivery charge and secure payment instructions.</p><span>03</span><p><strong>Your order is prepared</strong>We’ll keep you updated until your pieces reach you.</p></div>
         <div className="confirmation-actions"><Link href="/collections" className="primary-button">Shop more <span aria-hidden="true">&#8594;</span></Link><Link href="/" className="secondary-button">Return home</Link></div>
-        <p className="confirmation-help">Need help? <a href="https://wa.me/916305615898">Chat with us on WhatsApp</a></p>
+        <p className="confirmation-help">Need help? <a href="https://wa.me/2349047022935">Chat with us on WhatsApp</a></p>
       </section>
     </div>
   );

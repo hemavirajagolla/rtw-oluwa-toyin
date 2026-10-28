@@ -14,7 +14,7 @@ export function Footer() {
         </nav>
         <div className="simple-footer-contact">
           <p>Need styling help?</p>
-          <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer">Chat with us <span aria-hidden="true">&#8599;</span></a>
+          <a href="https://wa.me/2349047022935" target="_blank" rel="noreferrer">Chat with us <span aria-hidden="true">&#8599;</span></a>
         </div>
       </div>
       <div className="simple-footer-bottom">

@@ -15,14 +15,22 @@ type Suggestion = { slug: string; name: string; category: string; price: number;
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function CartSummaryInner({ suggestions = [] }: { suggestions?: Suggestion[] }) {
-  const { items, subtotal, updateQuantity, removeItem } = useCart();
+  const { items, subtotal, updateQuantity, removeItem, unavailable, dismissUnavailable } = useCart();
   const reduced = useReducedMotion();
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   const picks = suggestions.filter((item) => !items.some((cartItem) => cartItem.slug === item.slug)).slice(0, 4);
 
+  const notice = unavailable.length ? (
+    <p className="cart-notice" role="status">
+      {unavailable.join(", ")} {unavailable.length === 1 ? "is" : "are"} no longer available and {unavailable.length === 1 ? "was" : "were"} removed from your bag.
+      <button type="button" onClick={dismissUnavailable} aria-label="Dismiss">&times;</button>
+    </p>
+  ) : null;
+
   if (items.length === 0) {
     return (
       <section className="co-empty">
+        {notice}
         <span aria-hidden="true">&#10022;</span>
         <p className="co-kicker"><i aria-hidden="true" />Your bag</p>
         <h1>Your bag is <em>empty.</em></h1>
@@ -34,6 +42,7 @@ function CartSummaryInner({ suggestions = [] }: { suggestions?: Suggestion[] }) 
 
   return (
     <div className="co cart">
+      {notice}
       <header className="co-head">
         <div>
           <span className="co-kicker"><i aria-hidden="true" />Your bag</span>
@@ -91,7 +100,7 @@ function CartSummaryInner({ suggestions = [] }: { suggestions?: Suggestion[] }) 
           <div className="cart-help">
             <span aria-hidden="true">&#10022;</span>
             <p><strong>Not sure about your size?</strong> Our stylists will help before you order.</p>
-            <a href="https://wa.me/916305615898" target="_blank" rel="noreferrer">Ask on WhatsApp &#8599;</a>
+            <a href="https://wa.me/2349047022935" target="_blank" rel="noreferrer">Ask on WhatsApp &#8599;</a>
           </div>
         </div>
 

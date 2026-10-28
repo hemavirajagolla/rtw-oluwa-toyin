@@ -10,7 +10,7 @@ import { useCart } from "@/components/cart-context";
 import { formatNaira } from "@/lib/currency";
 import { DEFAULT_SHIPPING_ZONE, SHIPPING_ZONES, getShippingZone } from "@/lib/shipping";
 
-const WHATSAPP_NUMBER = "+916305615898";
+const WHATSAPP_NUMBER = "+2349047022935";
 
 const initialForm = {
   email: "",
