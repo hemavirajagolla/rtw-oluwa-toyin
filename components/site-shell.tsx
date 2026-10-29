@@ -158,7 +158,7 @@ export function SiteShell({ children, searchIndex = [] }: { children: React.Reac
       <header className="site-header">
         <div className="brand-lockup">
           <Link prefetch={false} href="/" className="brand-mark">
-            <span className="logo-crop logo-rtw"><ResponsiveImage src="/brand-logo-rtw.webp" alt="RTW by Elegant Moi" width={320} height={232} loading="eager" fetchPriority="high" /></span>
+            <span className="logo-crop logo-rtw"><ResponsiveImage src="/brand-logo-rtw.webp" alt="RTW by Elegant Moi" width={700} height={517} loading="eager" fetchPriority="high" /></span>
           </Link>
         </div>
 

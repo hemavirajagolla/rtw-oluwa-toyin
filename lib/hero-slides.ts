@@ -35,10 +35,9 @@ const swatches: [string, string][] = [
 function colorSwatches(colors: string[]): [string, string][] {
   const found: [string, string][] = [];
   for (const color of colors) {
-    for (const part of color.toLowerCase().split(/[^a-z]+/)) {
-      const match = swatches.find(([word]) => word === part);
-      if (match && !found.some(([, hex]) => hex === match[1])) found.push([color, match[1]]);
-    }
+    // One dot per colour: "Blue-violet" gets the first colour word it contains.
+    const match = color.toLowerCase().split(/[^a-z]+/).map((part) => swatches.find(([word]) => word === part)).find(Boolean);
+    if (match && !found.some(([, hex]) => hex === match[1])) found.push([color, match[1]]);
   }
   return found.slice(0, 4);
 }

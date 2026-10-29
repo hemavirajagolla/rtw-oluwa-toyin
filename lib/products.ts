@@ -43,7 +43,7 @@ function parseProduct(fileName: string): Product {
     price: Number(data.price),
     category: data.category,
     sizes: Array.isArray(data.sizes) ? sortSizes(data.sizes.map(String)) : [],
-    colors: Array.isArray(data.colors) ? data.colors : [],
+    colors: Array.isArray(data.colors) ? [...new Set<string>(data.colors.map(String))] : [],
     images: Array.isArray(data.images) ? data.images : [],
     shortDescription: data.shortDescription || "",
     fullDescription: data.fullDescription || "",

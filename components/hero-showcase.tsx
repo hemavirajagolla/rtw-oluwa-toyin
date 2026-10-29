@@ -151,7 +151,7 @@ export function HeroShowcase({ slides, pieceCount }: { slides: HeroSlide[]; piec
                       <strong>{slide.product.name}</strong>
                       <span className="lux-look-meta">
                         <span className="lux-swatches">
-                          {slide.product.colors.map(([name, hex]) => <i key={name} title={name} style={{ background: hex }} />)}
+                          {slide.product.colors.map(([name, hex]) => <i key={hex} title={name} style={{ background: hex }} />)}
                         </span>
                         <b>{slide.product.soldOut ? "Sold out" : formatNaira(slide.product.price)}</b>
                       </span>
