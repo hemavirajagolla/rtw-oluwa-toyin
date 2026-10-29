@@ -1,7 +1,7 @@
 ---
 name: Simi Two-Piece Set – Pink Floral with Emerald Green Trousers
 slug: simi-two-piece-set
-price: 19
+price: 17000
 category: Co-ords
 sizes:
   - '12'
