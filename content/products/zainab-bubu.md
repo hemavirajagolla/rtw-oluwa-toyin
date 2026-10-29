@@ -1,7 +1,7 @@
 ---
 name: Zainab Bubu – Checkered Satin with Red Beaded Neckline
 slug: zainab-bubu
-price: 25
+price: 15000
 category: Bubu
 sizes:
   - '14'
